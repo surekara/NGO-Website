@@ -12,8 +12,8 @@ export interface RazorpayResponse {
   razorpay_subscription_id?: string;
 }
 
-//export const RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_test_5Gr07DWc1NdDc9";
-export const RAZORPAY_KEY_ID = "rzp_test_5Gr07DWc1NdDc9";
+export const RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_live_zbNUagCAemIPyr";
+//export const RAZORPAY_KEY_ID = "rzp_test_5Gr07DWc1NdDc9";
 
 // Predefined Plan IDs for common SIP amounts (used as fallback only)
 // NOTE: Backend now dynamically creates plans for custom amounts
