@@ -11,28 +11,46 @@ import { Link } from "react-router-dom";
 const AboutPage = () => {
   const teamMembers = [
     {
-      name: "Sanjay Joshi",
-      role: "Founder & President",
-      image: "/placeholder.svg",
-      bio: "An IT professional with over 20 years of experience, Sanjay is driven by his vision of serving humanity through innovative solutions.",
+      name: "Niranjan Pendharkar",
+      role: "Board Member",
+      image: "/Niranjan.jpg",
+      bio: "Niranjan has over 30 years of experience in the software industry, having worked with leading global organizations such as Google, Symantec, Veritas, and Nutanix. He holds an M.Sc. degree from the Indian Institute of Science (IISc), Bangalore",
     },
     {
-      name: "Prachi Gupta",
-      role: "Program Director",
-      image: "/placeholder.svg",
-      bio: "With expertise in social work and community development, Prachi leads our initiatives with passion and dedication.",
+      name: "Jai Gahlot",
+      role: "Board Member",
+      image: "/JaiGahlot.png",
+      bio: "Jai Gahlot has over 17 years of experience in the IT industry, having worked with leading organizations such as Mindtree, Symantec, Dell, and Veritas. He holds an M.Tech. degree from the Dhirubhai Ambani Institute of Information and Communication Technology (DA-IICT)",
     },
     {
-      name: "Amit Kumar",
-      role: "Education Head",
-      image: "/placeholder.svg",
-      bio: "A seasoned educator committed to blending traditional values with modern learning approaches.",
+      name: "Brajesh Kumar Pandey",
+      role: "Board Member",
+      image: "/brajesh.jpg",
+      bio: "Brajesh Kumar Pandey has over 20 years of experience in the software industry, having worked with leading organizations such as L&T and Accolite. He holds a Bachelor of Engineering (B.E.) degree from Lakshmi Narain College of Technology, Bhopal",
     },
     {
-      name: "Dr. Meera Patel",
-      role: "Health Programs Lead",
-      image: "/placeholder.svg",
-      bio: "A medical professional bringing healthcare expertise to our wellness initiatives.",
+      name: "Tushar Wakde",
+      role: "Board Member",
+      image: "/tushar.jpg",
+      bio: "Tushar Wakde has over 30 years of experience in the IT industry, having served as Director and CEO of Remote Data Solutions Pvt. Ltd. He holds a Bachelor of Engineering (B.E.) degree from COEP Technological University, Pune",
+    },
+    {
+      name: "Jasbir Singh",
+      role: "Board Member",
+      image: "/jasbir.png",
+      bio: "Jasbir Singh has over 16 years of experience across the IT and manufacturing sectors and currently leads Sales and Delivery operations at UST Product Engineering. He holds an MBA degree from Symbiosis Centre for Management and Human Resource Development (SCMHRD), Pune",
+    },
+    {
+      name: "Pradeep Sankaran",
+      role: "Board Member",
+      image: "/pradeep.jpg",
+      bio: "Pradeep Sankaran has over 32 years of experience in the manufacturing and automotive industries, having worked with leading organizations such as Bajaj Auto, General Motors, and Schindler. He holds a Bachelor of Engineering (B.E.) degree from PSG College of Technology, Coimbatore",
+    },
+    {
+      name: "Arkodit Deb Burman",
+      role: "Board Member",
+      image: "/arkodit.png",
+      bio: "Arkodit Deb Burman has over 8 years of experience in human resources, having worked with leading organizations such as Cummins India, Airtel, and Vodafone Intelligent Solutions. He holds an MBA degree from Symbiosis Centre for Management and Human Resource Development (SCMHRD), Pune.",
     },
   ];
 
