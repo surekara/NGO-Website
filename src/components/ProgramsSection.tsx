@@ -2,14 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { BookOpen, Heart, HandHelping, ArrowRight } from "lucide-react";
+import { BookOpen, Heart, HandHelping, ArrowRight, UtensilsCrossed, HeartPulse } from "lucide-react";
 
 const ProgramsSection = () => {
   const programs = [
     {
       id: 1,
-      title: "Education Initiatives",
-      description: "Empowering children and adults through quality education programs, scholarships, and educational resources for underserved communities.",
+      title: "Education",
+      description: "Our youth empowerment program focuses on imparting human value-based education inspired by Vedic wisdom. By instilling positive values and life skills, we aim to steer young minds away from negative influences and empower them to become leaders for tomorrow",
       icon: BookOpen,
       category: "Education",
       link: "/programs/education",
@@ -17,20 +17,20 @@ const ProgramsSection = () => {
     },
     {
       id: 2,
-      title: "Healthcare Access",
-      description: "Providing medical camps, health education, and support for accessing healthcare services in rural and underprivileged areas.",
+      title: "Food Distribution",
+      description: "We believe that access to nutritious food is a fundamental human right. Through our food distribution program, we aim to alleviate hunger and malnutrition in our community by providing wholesome meals to those in need.",
       icon: Heart,
-      category: "Healthcare",
-      link: "/programs/healthcare",
-      backgroundImage: "/Copy of WhatsApp Image 2025-02-26 at 15.50.55 (1).jpeg"
+      category: "Food Distribution",
+      link: "/programs/food-distribution",
+      backgroundImage: "/fooddistribution.png"
     },
     {
       id: 3,
-      title: "Community Development",
-      description: "Building sustainable communities through infrastructure development, skill training, and women empowerment programs.",
-      icon: HandHelping,
-      category: "Community",
-      link: "/programs/community",
+      title: "Wellness",
+      description: "At Prachetas, we believe true well-being begins with balance. We organize free yoga sessions, health camps, and wellness programs to promote physical and mental wellness. Rooted in holistic practices and Vedic wisdom, our initiatives help individuals lead healthier, more balanced lives.",
+      icon: HeartPulse,
+      category: "Wellness",
+      link: "/programs/wellness",
       backgroundImage: "/Copy of WhatsApp Image 2025-02-27 at 16.10.09 (1).jpeg"
     }
   ];
