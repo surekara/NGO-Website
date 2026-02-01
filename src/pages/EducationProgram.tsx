@@ -3,12 +3,12 @@ import Footer from "../components/Footer";
 
 const EducationProgram = () => {
   const galleryImages = [
-    { src: "/education-1.jpg", caption: "Value-Based Education Seminar" },
-    { src: "/education-2.jpg", caption: "Certificate Distribution" },
-    { src: "/education-3.jpg", caption: "Group Discussions" },
-    { src: "/education-4.jpg", caption: "Interactive Learning Sessions" },
-    { src: "/education-5.jpg", caption: "Youth Empowerment Seminars" },
-    { src: "/education-6.jpg", caption: "Student Engagement Programs" },
+    { src: "/education-1.png", caption: "Value-Based Education Seminar" },
+    { src: "/education-2.png", caption: "Certificate Distribution" },
+    { src: "/education-3.png", caption: "Group Discussions" },
+    { src: "/education-4.png", caption: "Interactive Learning Sessions" },
+    { src: "/education-5.png", caption: "Youth Empowerment Seminars" },
+    { src: "/education-6.png", caption: "Student Engagement Programs" },
   ];
 
   return (
