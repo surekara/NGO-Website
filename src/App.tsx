@@ -16,6 +16,8 @@ import Partner from "./pages/Partner";
 import EducationProgram from "./pages/EducationProgram";
 import FoodDistributionProgram from "./pages/FoodDistributionProgram";
 import WellnessProgram from "./pages/WellnessProgram";
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +33,8 @@ const App = () => (
           <Route path="/programs/education" element={<EducationProgram />} />
           <Route path="/programs/food-distribution" element={<FoodDistributionProgram />} />
           <Route path="/programs/wellness" element={<WellnessProgram />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/impact" element={<Impact />} />
           <Route path="/get-involved" element={<GetInvolved />} />
           <Route path="/contact" element={<Contact />} />
