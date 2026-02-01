@@ -12,21 +12,21 @@ const AboutPage = () => {
   const teamMembers = [
     {
       name: "Niranjan Pendharkar",
-      role: "Board Member",
+      role: "President",
       image: "/Niranjan.jpg",
       bio: "Niranjan has over 30 years of experience in the software industry, having worked with leading global organizations such as Google, Symantec, Veritas, and Nutanix. He holds an M.Sc. degree from the Indian Institute of Science (IISc), Bangalore",
+    },
+    {
+      name: "Brajesh Kumar Pandey",
+      role: "Vice President",
+      image: "/brajesh.jpg",
+      bio: "Brajesh Kumar Pandey has over 20 years of experience in the software industry, having worked with leading organizations such as L&T and Accolite. He holds a Bachelor of Engineering (B.E.) degree from Lakshmi Narain College of Technology, Bhopal",
     },
     {
       name: "Jai Gahlot",
       role: "Board Member",
       image: "/JaiGahlot.png",
       bio: "Jai Gahlot has over 17 years of experience in the IT industry, having worked with leading organizations such as Mindtree, Symantec, Dell, and Veritas. He holds an M.Tech. degree from the Dhirubhai Ambani Institute of Information and Communication Technology (DA-IICT)",
-    },
-    {
-      name: "Brajesh Kumar Pandey",
-      role: "Board Member",
-      image: "/brajesh.jpg",
-      bio: "Brajesh Kumar Pandey has over 20 years of experience in the software industry, having worked with leading organizations such as L&T and Accolite. He holds a Bachelor of Engineering (B.E.) degree from Lakshmi Narain College of Technology, Bhopal",
     },
     {
       name: "Tushar Wakde",
