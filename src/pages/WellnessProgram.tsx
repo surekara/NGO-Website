@@ -3,12 +3,12 @@ import Footer from "../components/Footer";
 
 const WellnessProgram = () => {
   const galleryImages = [
-    { src: "/wellness-1.jpg", caption: "Free Yoga Sessions" },
-    { src: "/wellness-2.jpg", caption: "Health Camps" },
-    { src: "/wellness-3.jpg", caption: "Meditation Workshops" },
-    { src: "/wellness-4.jpg", caption: "Holistic Wellness Programs" },
-    { src: "/wellness-5.jpg", caption: "Community Health Initiatives" },
-    { src: "/wellness-6.jpg", caption: "Vedic Wellness Practices" },
+    { src: "/wellness-1.png", caption: "" },
+    { src: "/wellness-2.png", caption: "" },
+    { src: "/wellness-3.png", caption: "" },
+    { src: "/wellness-4.png", caption: "" },
+    { src: "/wellness-5.png", caption: "" },
+    { src: "/wellness-6.png", caption: "" },
   ];
 
   return (
@@ -23,7 +23,7 @@ const WellnessProgram = () => {
             <div className="relative w-64 h-64 flex-shrink-0">
               <div className="hexagon-container">
                 <img
-                  src="/wellness-hero.jpg"
+                  src="/wellness-hero.png"
                   alt="Wellness Program"
                   className="hexagon-image"
                 />

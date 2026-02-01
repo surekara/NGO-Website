@@ -23,7 +23,7 @@ const EducationProgram = () => {
             <div className="relative w-64 h-64 flex-shrink-0">
               <div className="hexagon-container">
                 <img
-                  src="/education-hero.jpg"
+                  src="/education-hero.png"
                   alt="Education Program"
                   className="hexagon-image"
                 />
