@@ -11,16 +11,14 @@ const ContactPage = () => {
       icon: Phone,
       title: "Phone",
       details: [
-        "+91 98765 43210",
-        "+91 98765 43211"
+        "+91 88888 08112"
       ]
     },
     {
       icon: Mail,
       title: "Email",
       details: [
-        "prachetasfoundation@gmail.com",
-        "info@prachetas.org"
+        "prachetasfoundation@gmail.com"
       ]
     },
     {

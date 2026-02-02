@@ -26,10 +26,10 @@ const Footer = () => {
               <a href="https://twitter.com" className="text-gray-400 hover:text-prachetas-yellow" aria-label="Twitter">
                 <Twitter size={20} />
               </a>
-              <a href="https://instagram.com" className="text-gray-400 hover:text-prachetas-yellow" aria-label="Instagram">
+              <a href="https://www.instagram.com/prachetasfoundation/" className="text-gray-400 hover:text-prachetas-yellow" aria-label="Instagram">
                 <Instagram size={20} />
               </a>
-              <a href="https://linkedin.com" className="text-gray-400 hover:text-prachetas-yellow" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/company/prachetas-foundation/" className="text-gray-400 hover:text-prachetas-yellow" aria-label="LinkedIn">
                 <Linkedin size={20} />
               </a>
               <a href="https://youtube.com" className="text-gray-400 hover:text-prachetas-yellow" aria-label="YouTube">
@@ -82,11 +82,6 @@ const Footer = () => {
               <li>
                 <Link to="/programs/green-cloud" className="text-gray-400 hover:text-prachetas-yellow transition-colors">
                   Community Development
-                </Link>
-              </li>
-              <li>
-                <Link to="/programs/data-projects" className="text-gray-400 hover:text-prachetas-yellow transition-colors">
-                  Healthcare Access
                 </Link>
               </li>
               <li>
