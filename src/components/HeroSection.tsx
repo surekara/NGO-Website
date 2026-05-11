@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Play, X, Link2 } from "lucide-react";
+import { ArrowRight, Play, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 const useCounter = (target: number, duration = 2000, start = false) => {
@@ -104,13 +104,9 @@ const HeroSection = () => {
               </Link>
             </Button>
             <Button onClick={openVideo} size="lg" variant="outline"
-              className="border-2 border-white/30 text-white hover:border-prachetas-yellow hover:text-prachetas-yellow transition-all px-8 py-6 text-lg font-semibold backdrop-blur-sm">
+              className="border-2 border-prachetas-yellow text-prachetas-yellow hover:bg-prachetas-yellow hover:text-black transition-all px-8 py-6 text-lg font-semibold">
               <Play className="mr-2 h-5 w-5" /> Watch Our Story
             </Button>
-            <Link to="/create-fundraiser"
-              className="inline-flex items-center gap-2 border border-yellow-400/40 text-yellow-400 hover:bg-yellow-400/10 transition-all px-6 py-3 rounded-lg text-sm font-semibold">
-              <Link2 size={16} /> Create Fundraiser Link
-            </Link>
           </div>
 
           {/* Animated stats */}

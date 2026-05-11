@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "@/lib/theme-context";
 
 interface NavItem {
   href: string;
@@ -18,6 +19,7 @@ const navItems: NavItem[] = [
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { theme, toggle } = useTheme();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -62,6 +64,13 @@ const Header = () => {
             >
               🔗 Fundraise
             </Link>
+            <button
+              onClick={toggle}
+              className="p-2 rounded-lg border border-white/20 hover:border-yellow-400/50 text-gray-300 hover:text-yellow-400 transition-all"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
             <Button
               asChild
               className="bg-prachetas-yellow text-prachetas-black hover:bg-prachetas-bright-yellow transition-colors font-semibold px-6"

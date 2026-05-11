@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { UtensilsCrossed, BookOpen, HeartPulse, Leaf, Users, Repeat, IndianRupee, Trophy } from "lucide-react";
+import { UtensilsCrossed, BookOpen, HeartPulse, Leaf, Users, Repeat, Trophy } from "lucide-react";
 
 const useCounter = (target: number, duration = 2000, start = false) => {
   const [count, setCount] = useState(0);
@@ -46,7 +46,7 @@ const pillars = [
     icon: HeartPulse,
     title: "Wellness",
     desc: "Free yoga sessions, health camps, and holistic wellness programs for all.",
-    stat: 500,
+    stat: 50,
     statLabel: "Camps Conducted",
     suffix: "+",
     gradient: "from-pink-500 to-rose-500",
@@ -100,23 +100,22 @@ const ImpactSection = () => {
   }, []);
 
   const totals = [
-    { icon: Users,        value: useCounter(50000, 2000, started), suffix: "K+", label: "Lives Impacted",    div: 1000 },
-    { icon: Repeat,       value: useCounter(100,   1800, started), suffix: "+",  label: "Volunteers",        div: 1    },
-    { icon: IndianRupee,  value: useCounter(25,    1500, started), suffix: "L+", label: "Funds Raised (₹)",  div: 1    },
-    { icon: Trophy,       value: useCounter(25,    1600, started), suffix: "+",  label: "Programs Running",  div: 1    },
+    { icon: Users,   value: useCounter(50000, 2000, started), suffix: "K+", label: "Lives Impacted",   div: 1000 },
+    { icon: Repeat,  value: useCounter(100,   1800, started), suffix: "+",  label: "Volunteers",       div: 1    },
+    { icon: Trophy,  value: useCounter(25,    1600, started), suffix: "+",  label: "Programs Running", div: 1    },
   ];
 
   return (
-    <section className="py-20 bg-white" ref={ref}>
+    <section className="py-20 bg-white dark:bg-gray-950 transition-colors" ref={ref}>
       <div className="container mx-auto px-4">
 
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-14">
-          <div className="inline-flex items-center gap-2 bg-yellow-50 border border-yellow-200 text-yellow-700 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
+          <div className="inline-flex items-center gap-2 bg-yellow-50 dark:bg-yellow-400/10 border border-yellow-200 dark:border-yellow-400/30 text-yellow-700 dark:text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
             ✨ Real-World Change
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">Our Impact</h2>
-          <p className="text-gray-500 text-lg">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Our Impact</h2>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">
             Through compassion and collective action, we've created meaningful change across communities
           </p>
         </div>

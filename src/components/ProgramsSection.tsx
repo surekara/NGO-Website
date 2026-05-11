@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { BookOpen, Heart, HandHelping, ArrowRight, UtensilsCrossed, HeartPulse } from "lucide-react";
 
@@ -36,59 +34,51 @@ const ProgramsSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-gray-100" id="programs">
+    <section className="py-16 bg-gray-100 dark:bg-gray-900 transition-colors" id="programs">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4 text-prachetas-black">Our Programs</h2>
-          <p className="text-prachetas-medium-gray text-lg">
+          <h2 className="text-4xl font-bold mb-4 text-prachetas-black dark:text-white">Our Programs</h2>
+          <p className="text-prachetas-medium-gray dark:text-gray-400 text-lg">
             Making a meaningful impact through targeted initiatives in education, healthcare, and community development
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           {programs.map((program) => (
-            <Card 
-              key={program.id} 
-              className="relative overflow-hidden bg-white hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105"
+            <div
+              key={program.id}
+              className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 dark:border-gray-700 group"
             >
-              {/* Background Image */}
-              <div className="absolute inset-0">
+              {/* Image */}
+              <div className="relative h-52 overflow-hidden">
                 <img
                   src={program.backgroundImage}
-                  alt={`${program.title} background`}
-                  className="w-full h-full object-cover"
+                  alt={program.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                {/* Dark overlay for text readability */}
-                <div className="absolute inset-0 bg-black/60"></div>
-              </div>
-              
-              {/* Content */}
-              <div className="relative z-10">
-                <CardHeader>
-                  <div className="bg-prachetas-yellow text-prachetas-black w-14 h-14 flex items-center justify-center rounded-full mb-4 shadow-lg">
-                    <program.icon className="h-7 w-7" />
-                  </div>
-                  <Badge className="mb-2 bg-prachetas-yellow text-prachetas-black hover:bg-yellow-300">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <div className="absolute bottom-3 left-4">
+                  <span className="inline-flex items-center gap-1.5 bg-prachetas-yellow text-black text-xs font-bold px-3 py-1 rounded-full">
+                    <program.icon className="h-3.5 w-3.5" />
                     {program.category}
-                  </Badge>
-                  <CardTitle className="text-white text-2xl">{program.title}</CardTitle>
-                  <CardDescription className="text-gray-200 text-base">
-                    {program.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardFooter>
-                  <Button 
-                    asChild 
-                    variant="outline"
-                    className="w-full border-2 border-prachetas-yellow bg-prachetas-yellow/20 text-white hover:bg-prachetas-yellow hover:text-prachetas-black transition-colors backdrop-blur-sm"
-                  >
-                    <Link to={program.link} className="flex items-center justify-center">
-                      Learn More <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </CardFooter>
+                  </span>
+                </div>
               </div>
-            </Card>
+
+              {/* Content */}
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{program.title}</h3>
+                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-5">{program.description}</p>
+                <Button
+                  asChild
+                  className="w-full bg-black text-prachetas-yellow hover:bg-gray-900 transition-colors font-semibold"
+                >
+                  <Link to={program.link} className="flex items-center justify-center gap-2">
+                    Learn More <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
           ))}
         </div>
 

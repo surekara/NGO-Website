@@ -74,18 +74,21 @@ const GallerySection: React.FC = () => {
   }, [lightboxOpen]);
 
   return (
-    <section className="py-16 overflow-hidden">
+    <section className="py-16 overflow-hidden bg-gray-950">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4 text-gray-800">Our Gallery</h2>
-          <p className="text-gray-600 text-lg">
-            A glimpse into our community initiatives and the lives we've touched. Click any image to view it in full size.
+          <div className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/30 text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
+            📸 Moments of Impact
+          </div>
+          <h2 className="text-4xl font-bold mb-4 text-white">Our Gallery</h2>
+          <p className="text-gray-400 text-lg">
+            A glimpse into our community initiatives and the lives we've touched. Click any image to view it full size.
           </p>
         </div>
       </div>
 
       {/* Vertically stacked rows with continuous scrolling */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-5">
         {/* Row 1 - Slowest */}
         <div className="scrolling-row-container">
           <div className="scrolling-row animate-scroll-slow">
