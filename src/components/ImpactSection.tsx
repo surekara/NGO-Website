@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { UtensilsCrossed, BookOpen, HeartPulse, Leaf, Users, Repeat, Trophy } from "lucide-react";
+import { UtensilsCrossed, BookOpen, HeartPulse, Leaf } from "lucide-react";
 
 const useCounter = (target: number, duration = 2000, start = false) => {
   const [count, setCount] = useState(0);
@@ -99,12 +99,6 @@ const ImpactSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  const totals = [
-    { icon: Users,   value: useCounter(50000, 2000, started), suffix: "K+", label: "Lives Impacted",   div: 1000 },
-    { icon: Repeat,  value: useCounter(100,   1800, started), suffix: "+",  label: "Volunteers",       div: 1    },
-    { icon: Trophy,  value: useCounter(25,    1600, started), suffix: "+",  label: "Programs Running", div: 1    },
-  ];
-
   return (
     <section className="py-20 bg-white dark:bg-gray-950 transition-colors" ref={ref}>
       <div className="container mx-auto px-4">
@@ -118,19 +112,6 @@ const ImpactSection = () => {
           <p className="text-gray-500 dark:text-gray-400 text-lg">
             Through compassion and collective action, we've created meaningful change across communities
           </p>
-        </div>
-
-        {/* Summary stats bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14 max-w-4xl mx-auto">
-          {totals.map(({ icon: Icon, value, suffix, label, div }) => (
-            <div key={label} className="bg-gray-900 rounded-2xl px-5 py-4 text-center text-white">
-              <Icon size={18} className="text-yellow-400 mx-auto mb-2" />
-              <div className="text-2xl font-extrabold text-yellow-400 tabular-nums">
-                {div > 1 ? `${Math.floor(value / div)}${suffix}` : `${value}${suffix}`}
-              </div>
-              <div className="text-xs text-gray-400 uppercase tracking-wider mt-0.5">{label}</div>
-            </div>
-          ))}
         </div>
 
         {/* 4 Pillars */}
