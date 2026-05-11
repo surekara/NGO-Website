@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Github, Twitter, Instagram, Linkedin, Youtube, ArrowRight, MapPin, Phone, Mail } from "lucide-react";
+import { Instagram, Linkedin, Youtube, MapPin, Phone, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -20,19 +20,13 @@ const Footer = () => {
               Building stronger communities through collaborative initiatives, empowering individuals, and fostering sustainable development worldwide.
             </p>
             <div className="flex space-x-4">
-              <a href="https://github.com" className="text-gray-400 hover:text-prachetas-yellow" aria-label="Github">
-                <Github size={20} />
-              </a>
-              <a href="https://twitter.com" className="text-gray-400 hover:text-prachetas-yellow" aria-label="Twitter">
-                <Twitter size={20} />
-              </a>
-              <a href="https://www.instagram.com/prachetasfoundation/" className="text-gray-400 hover:text-prachetas-yellow" aria-label="Instagram">
+              <a href="https://www.instagram.com/prachetasfoundation/" className="text-gray-400 hover:text-prachetas-yellow transition-colors" aria-label="Instagram">
                 <Instagram size={20} />
               </a>
-              <a href="https://www.linkedin.com/company/prachetas-foundation/" className="text-gray-400 hover:text-prachetas-yellow" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/company/prachetas-foundation/" className="text-gray-400 hover:text-prachetas-yellow transition-colors" aria-label="LinkedIn">
                 <Linkedin size={20} />
               </a>
-              <a href="https://youtube.com" className="text-gray-400 hover:text-prachetas-yellow" aria-label="YouTube">
+              <a href="https://youtube.com/@prachetasfoundation" className="text-gray-400 hover:text-prachetas-yellow transition-colors" aria-label="YouTube">
                 <Youtube size={20} />
               </a>
             </div>
@@ -63,8 +57,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/news" className="text-gray-400 hover:text-prachetas-yellow transition-colors">
-                  News & Updates
+                <Link to="/create-fundraiser" className="text-yellow-400/80 hover:text-prachetas-yellow transition-colors font-medium">
+                  🔗 Create Fundraiser Link
                 </Link>
               </li>
             </ul>

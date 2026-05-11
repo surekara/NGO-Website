@@ -1,67 +1,142 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Users, Heart, BookOpen } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { UtensilsCrossed, BookOpen, HeartPulse, Leaf, Users, Repeat, IndianRupee, Trophy } from "lucide-react";
+
+const useCounter = (target: number, duration = 2000, start = false) => {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let startTime: number | null = null;
+    const step = (ts: number) => {
+      if (!startTime) startTime = ts;
+      const p = Math.min((ts - startTime) / duration, 1);
+      setCount(Math.floor(p * target));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [start, target, duration]);
+  return count;
+};
+
+const pillars = [
+  {
+    icon: UtensilsCrossed,
+    title: "Food Distribution",
+    desc: "Wholesome meals provided to families facing food insecurity across Pune.",
+    stat: 18000,
+    statLabel: "Meals Served",
+    suffix: "+",
+    gradient: "from-orange-500 to-red-500",
+    bg: "from-orange-50 to-red-50",
+    border: "border-orange-200 hover:border-orange-400",
+    iconBg: "bg-orange-100 text-orange-600",
+  },
+  {
+    icon: BookOpen,
+    title: "Education",
+    desc: "Value-based education rooted in Vedic wisdom empowering the next generation.",
+    stat: 3000,
+    statLabel: "Students Reached",
+    suffix: "+",
+    gradient: "from-blue-500 to-indigo-500",
+    bg: "from-blue-50 to-indigo-50",
+    border: "border-blue-200 hover:border-blue-400",
+    iconBg: "bg-blue-100 text-blue-600",
+  },
+  {
+    icon: HeartPulse,
+    title: "Wellness",
+    desc: "Free yoga sessions, health camps, and holistic wellness programs for all.",
+    stat: 500,
+    statLabel: "Camps Conducted",
+    suffix: "+",
+    gradient: "from-pink-500 to-rose-500",
+    bg: "from-pink-50 to-rose-50",
+    border: "border-pink-200 hover:border-pink-400",
+    iconBg: "bg-pink-100 text-pink-600",
+  },
+  {
+    icon: Leaf,
+    title: "Sustainability",
+    desc: "Green initiatives and environmental programs for a healthier planet.",
+    stat: 10000,
+    statLabel: "Saplings Planted",
+    suffix: "+",
+    gradient: "from-green-500 to-emerald-500",
+    bg: "from-green-50 to-emerald-50",
+    border: "border-green-200 hover:border-green-400",
+    iconBg: "bg-green-100 text-green-600",
+  },
+];
+
+const PillarCard = ({ pillar, started }: { pillar: typeof pillars[0]; started: boolean }) => {
+  const count = useCounter(pillar.stat, 2000, started);
+  const fmt = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(0)}K${pillar.suffix}` : `${n}${pillar.suffix}`;
+  return (
+    <div className={`bg-gradient-to-br ${pillar.bg} border-2 ${pillar.border} rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 group`}>
+      <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${pillar.iconBg} group-hover:scale-110 transition-transform`}>
+        <pillar.icon size={22} />
+      </div>
+      <h3 className="text-xl font-bold text-gray-900 mb-2">{pillar.title}</h3>
+      <p className="text-gray-500 text-sm mb-5 leading-relaxed">{pillar.desc}</p>
+      <div className={`bg-gradient-to-r ${pillar.gradient} rounded-xl px-4 py-3 text-white`}>
+        <div className="text-2xl font-extrabold tabular-nums">{fmt(count)}</div>
+        <div className="text-xs uppercase tracking-wider opacity-80">{pillar.statLabel}</div>
+      </div>
+    </div>
+  );
+};
 
 const ImpactSection = () => {
-  return (
-    <section className="py-16 relative overflow-hidden bg-gray-100">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-pattern transform rotate-45"></div>
-      </div>
+  const [started, setStarted] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4 text-prachetas-black">Our Impact</h2>
-          <p className="text-prachetas-medium-gray text-lg">
-            Through compassion and collective action, we've created meaningful
-            change across communities
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setStarted(true); },
+      { threshold: 0.2 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const totals = [
+    { icon: Users,        value: useCounter(50000, 2000, started), suffix: "K+", label: "Lives Impacted",    div: 1000 },
+    { icon: Repeat,       value: useCounter(100,   1800, started), suffix: "+",  label: "Volunteers",        div: 1    },
+    { icon: IndianRupee,  value: useCounter(25,    1500, started), suffix: "L+", label: "Funds Raised (₹)",  div: 1    },
+    { icon: Trophy,       value: useCounter(25,    1600, started), suffix: "+",  label: "Programs Running",  div: 1    },
+  ];
+
+  return (
+    <section className="py-20 bg-white" ref={ref}>
+      <div className="container mx-auto px-4">
+
+        {/* Header */}
+        <div className="max-w-3xl mx-auto text-center mb-14">
+          <div className="inline-flex items-center gap-2 bg-yellow-50 border border-yellow-200 text-yellow-700 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
+            ✨ Real-World Change
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">Our Impact</h2>
+          <p className="text-gray-500 text-lg">
+            Through compassion and collective action, we've created meaningful change across communities
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <Card className="bg-white border-2 border-gray-200 hover:border-prachetas-yellow shadow-xl hover:transform hover:scale-105 transition-all duration-300">
-            <CardContent className="pt-6">
-              <div className="flex flex-col items-center text-center">
-                <div className="bg-prachetas-yellow text-prachetas-black p-4 rounded-full mb-4 shadow-lg">
-                  <Users className="h-8 w-8" />
-                </div>
-                <h3 className="text-3xl font-bold mb-2 text-prachetas-black">
-                  50,000+
-                </h3>
-                <p className="text-prachetas-medium-gray text-lg">
-                  Lives positively impacted through our community initiatives
-                </p>
+        {/* Summary stats bar */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14 max-w-4xl mx-auto">
+          {totals.map(({ icon: Icon, value, suffix, label, div }) => (
+            <div key={label} className="bg-gray-900 rounded-2xl px-5 py-4 text-center text-white">
+              <Icon size={18} className="text-yellow-400 mx-auto mb-2" />
+              <div className="text-2xl font-extrabold text-yellow-400 tabular-nums">
+                {div > 1 ? `${Math.floor(value / div)}${suffix}` : `${value}${suffix}`}
               </div>
-            </CardContent>
-          </Card>
+              <div className="text-xs text-gray-400 uppercase tracking-wider mt-0.5">{label}</div>
+            </div>
+          ))}
+        </div>
 
-          <Card className="bg-white border-2 border-gray-200 hover:border-prachetas-yellow shadow-xl hover:transform hover:scale-105 transition-all duration-300">
-            <CardContent className="pt-6">
-              <div className="flex flex-col items-center text-center">
-                <div className="bg-prachetas-yellow text-prachetas-black p-4 rounded-full mb-4 shadow-lg">
-                  <Heart className="h-8 w-8" />
-                </div>
-                <h3 className="text-3xl font-bold mb-2 text-prachetas-black">100+</h3>
-                <p className="text-prachetas-medium-gray text-lg">
-                  Volunteers actively engaged in our programs and initiatives
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white border-2 border-gray-200 hover:border-prachetas-yellow shadow-xl hover:transform hover:scale-105 transition-all duration-300">
-            <CardContent className="pt-6">
-              <div className="flex flex-col items-center text-center">
-                <div className="bg-prachetas-yellow text-prachetas-black p-4 rounded-full mb-4 shadow-lg">
-                  <BookOpen className="h-8 w-8" />
-                </div>
-                <h3 className="text-3xl font-bold mb-2 text-prachetas-black">25+</h3>
-                <p className="text-prachetas-medium-gray text-lg">
-                  Educational programs conducted to empower communities
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+        {/* 4 Pillars */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {pillars.map(p => <PillarCard key={p.title} pillar={p} started={started} />)}
         </div>
       </div>
     </section>

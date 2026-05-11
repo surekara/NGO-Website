@@ -7,6 +7,7 @@ import ProgramsSection from "../components/ProgramsSection";
 import TestimonialsSection from "../components/TestimonialsSection";
 import GallerySection from "../components/GallerySection";
 import GetInvolvedSection from "../components/GetInvolvedSection";
+import FundraiserStrip from "../components/FundraiserStrip";
 import ContactSection from "../components/ContactSection";
 import Footer from "../components/Footer";
 
@@ -44,6 +45,12 @@ const Index = () => {
         <ProgramsSection />
       </section>
       
+      {/* Section Divider */}
+      <div className="section-divider"></div>
+
+      {/* Fundraiser Strip */}
+      <FundraiserStrip />
+
       {/* Section Divider */}
       <div className="section-divider"></div>
       
