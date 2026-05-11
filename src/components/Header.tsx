@@ -56,6 +56,12 @@ const Header = () => {
                 {item.label}
               </Link>
             ))}
+            <Link
+              to="/create-fundraiser"
+              className="text-yellow-400 hover:text-yellow-300 transition-colors font-medium text-sm border border-yellow-400/40 hover:border-yellow-300 px-4 py-2 rounded-lg"
+            >
+              🔗 Fundraise
+            </Link>
             <Button
               asChild
               className="bg-prachetas-yellow text-prachetas-black hover:bg-prachetas-bright-yellow transition-colors font-semibold px-6"
@@ -89,6 +95,13 @@ const Header = () => {
                 {item.label}
               </Link>
             ))}
+            <Link
+              to="/create-fundraiser"
+              className="block text-yellow-400 hover:text-yellow-300 transition-colors font-medium py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              🔗 Create Fundraiser Link
+            </Link>
             <Button
               asChild
               className="w-full bg-prachetas-yellow text-prachetas-black hover:bg-prachetas-bright-yellow transition-colors font-semibold"
