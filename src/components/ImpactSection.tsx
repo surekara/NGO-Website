@@ -74,11 +74,12 @@ const PillarCard = ({ pillar, started, idx }: { pillar: typeof pillars[0]; start
   const fmt = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(0)}K${pillar.suffix}` : `${n}${pillar.suffix}`;
   return (
     <motion.div
-      className={`bg-gradient-to-br ${pillar.bg} border-2 ${pillar.border} rounded-2xl p-6 shadow-sm hover:shadow-2xl transition-all duration-300 group`}
+      className={`bg-gradient-to-br ${pillar.bg} border-2 ${pillar.border} rounded-2xl p-6 shadow-sm hover:shadow-2xl transition-all duration-300 group backdrop-blur-sm`}
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: idx * 0.15, duration: 0.6 }}
-      whileHover={{ y: -10 }}
+      whileHover={{ y: -10, scale: 1.02 }}
+      style={{ backdropFilter: "blur(10px)" }}
     >
       <motion.div
         className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${pillar.iconBg}`}

@@ -84,7 +84,8 @@ const ProgramsSection = () => {
               key={program.id}
               variants={cardVariants}
               className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 group"
-              whileHover={{ y: -10 }}
+              whileHover={{ y: -10, rotateX: 2, rotateY: 2 }}
+              style={{ transformStyle: "preserve-3d" }}
             >
               {/* Image */}
               <div className="relative h-52 overflow-hidden">

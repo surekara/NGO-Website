@@ -5,6 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import ScrollToTop from "./components/ScrollToTop";
+import ProgressBar from "./components/ProgressBar";
+import BackToTop from "./components/BackToTop";
+import StickyCTA from "./components/StickyCTA";
+import CustomCursor from "./components/CustomCursor";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Donate from "./pages/Donate";
@@ -50,7 +54,11 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ProgressBar />
         <ScrollToTop />
+        <BackToTop />
+        <StickyCTA />
+        <CustomCursor />
         <Routes>
           <Route path="/" element={<PageTransition><Index /></PageTransition>} />
           <Route path="/about" element={<PageTransition><About /></PageTransition>} />

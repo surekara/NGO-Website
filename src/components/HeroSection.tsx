@@ -87,6 +87,31 @@ const HeroSection = () => {
         <img src="/prachetas-hero-bg.png" className="w-full h-full object-contain opacity-20" alt="" />
       </motion.div>
 
+      {/* Particle background */}
+      <div className="absolute inset-0 z-5 pointer-events-none">
+        {[...Array(50)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-yellow-400/30 rounded-full"
+            initial={{
+              x: Math.random() * 100 + "%",
+              y: Math.random() * 100 + "%",
+              opacity: 0,
+            }}
+            animate={{
+              y: [null, -Math.random() * 500 - 200],
+              opacity: [0, 0.6, 0],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+              ease: "linear",
+            }}
+          />
+        ))}
+      </div>
+
       {/* Enhanced glowing orbs with animation */}
       <motion.div
         className="absolute top-1/4 left-1/4 w-96 h-96 bg-yellow-400/15 rounded-full blur-3xl pointer-events-none"
@@ -144,7 +169,7 @@ const HeroSection = () => {
           <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-bold mb-4 leading-tight tracking-tight">
             <span className="text-white">PRACHETAS</span><br />
             <motion.span
-              className="text-prachetas-yellow"
+              className="text-prachetas-yellow bg-gradient-to-r from-prachetas-yellow via-yellow-300 to-prachetas-yellow bg-clip-text text-transparent animate-gradient-x"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}

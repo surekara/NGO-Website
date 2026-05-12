@@ -111,6 +111,21 @@
   }
 }
 
+/* Accessibility: Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Custom gradient backgrounds and section utilities */
 .gradient-primary {
   background: linear-gradient(135deg, #000000 0%, #333333 50%, #FFD700 100%);
