@@ -67,10 +67,22 @@ const ProgramsSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl font-bold mb-4 text-prachetas-black dark:text-white">Our Programs</h2>
-          <p className="text-prachetas-medium-gray dark:text-gray-400 text-lg">
+          <motion.h2
+            className="text-4xl font-bold mb-4 text-prachetas-black dark:text-white"
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            Our Programs
+          </motion.h2>
+          <motion.p
+            className="text-prachetas-medium-gray dark:text-gray-400 text-lg"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
             Making a meaningful impact through targeted initiatives in education, healthcare, and community development
-          </p>
+          </motion.p>
         </motion.div>
 
         <motion.div
@@ -92,9 +104,12 @@ const ProgramsSection = () => {
                 <motion.img
                   src={program.backgroundImage}
                   alt={program.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover blur-sm transition-all duration-500"
+                  initial={{ filter: "blur(10px)" }}
+                  animate={{ filter: "blur(0px)" }}
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.5 }}
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-3 left-4">
