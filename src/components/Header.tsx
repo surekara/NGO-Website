@@ -92,9 +92,17 @@ const Header = () => {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
                 asChild
-                className="bg-prachetas-yellow text-prachetas-black hover:bg-prachetas-bright-yellow transition-colors font-semibold px-6 shadow-lg shadow-yellow-400/20"
+                className="bg-prachetas-yellow text-prachetas-black hover:bg-prachetas-bright-yellow transition-colors font-semibold px-6 shadow-lg shadow-yellow-400/20 relative overflow-hidden group"
               >
-                <Link to="/donate">Donate Now</Link>
+                <Link to="/donate">
+                  <motion.span
+                    className="relative z-10"
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    Donate Now
+                  </motion.span>
+                </Link>
               </Button>
             </motion.div>
           </nav>

@@ -147,6 +147,34 @@ const HeroSection = () => {
         transition={{ duration: 1 }}
       />
 
+      {/* Floating decorative icons */}
+      <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-yellow-400/10"
+            style={{
+              left: `${10 + i * 12}%`,
+              top: `${20 + (i % 3) * 30}%`,
+              fontSize: `${20 + (i % 3) * 10}px`,
+            }}
+            animate={{
+              y: [0, -20, 0],
+              rotate: [0, 360, 0],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{
+              duration: 6 + i,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.5,
+            }}
+          >
+            ✦
+          </motion.div>
+        ))}
+      </div>
+
       {/* Content */}
       <motion.div
         className="container mx-auto px-4 relative z-20"
