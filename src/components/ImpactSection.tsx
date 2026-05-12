@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { UtensilsCrossed, BookOpen, HeartPulse, Leaf } from "lucide-react";
+import { motion, useInView } from "framer-motion";
 
 const useCounter = (target: number, duration = 2000, start = false) => {
   const [count, setCount] = useState(0);
@@ -68,55 +69,72 @@ const pillars = [
   },
 ];
 
-const PillarCard = ({ pillar, started }: { pillar: typeof pillars[0]; started: boolean }) => {
+const PillarCard = ({ pillar, started, idx }: { pillar: typeof pillars[0]; started: boolean; idx: number }) => {
   const count = useCounter(pillar.stat, 2000, started);
   const fmt = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(0)}K${pillar.suffix}` : `${n}${pillar.suffix}`;
   return (
-    <div className={`bg-gradient-to-br ${pillar.bg} border-2 ${pillar.border} rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 group`}>
-      <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${pillar.iconBg} group-hover:scale-110 transition-transform`}>
+    <motion.div
+      className={`bg-gradient-to-br ${pillar.bg} border-2 ${pillar.border} rounded-2xl p-6 shadow-sm hover:shadow-2xl transition-all duration-300 group`}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: idx * 0.15, duration: 0.6 }}
+      whileHover={{ y: -10 }}
+    >
+      <motion.div
+        className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${pillar.iconBg}`}
+        whileHover={{ rotate: 360, scale: 1.1 }}
+        transition={{ duration: 0.6 }}
+      >
         <pillar.icon size={22} />
-      </div>
+      </motion.div>
       <h3 className="text-xl font-bold text-gray-900 mb-2">{pillar.title}</h3>
       <p className="text-gray-500 text-sm mb-5 leading-relaxed">{pillar.desc}</p>
-      <div className={`bg-gradient-to-r ${pillar.gradient} rounded-xl px-4 py-3 text-white`}>
+      <motion.div
+        className={`bg-gradient-to-r ${pillar.gradient} rounded-xl px-4 py-3 text-white`}
+        whileHover={{ scale: 1.05 }}
+      >
         <div className="text-2xl font-extrabold tabular-nums">{fmt(count)}</div>
         <div className="text-xs uppercase tracking-wider opacity-80">{pillar.statLabel}</div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
 const ImpactSection = () => {
   const [started, setStarted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setStarted(true); },
-      { threshold: 0.2 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+    if (isInView) setStarted(true);
+  }, [isInView]);
 
   return (
     <section className="py-20 bg-white dark:bg-gray-950 transition-colors" ref={ref}>
       <div className="container mx-auto px-4">
 
         {/* Header */}
-        <div className="max-w-3xl mx-auto text-center mb-14">
-          <div className="inline-flex items-center gap-2 bg-yellow-50 dark:bg-yellow-400/10 border border-yellow-200 dark:border-yellow-400/30 text-yellow-700 dark:text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
+        <motion.div
+          className="max-w-3xl mx-auto text-center mb-14"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.div
+            className="inline-flex items-center gap-2 bg-yellow-50 dark:bg-yellow-400/10 border border-yellow-200 dark:border-yellow-400/30 text-yellow-700 dark:text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-4"
+            whileHover={{ scale: 1.05 }}
+          >
             ✨ Real-World Change
-          </div>
+          </motion.div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Our Impact</h2>
           <p className="text-gray-500 dark:text-gray-400 text-lg">
             Through compassion and collective action, we've created meaningful change across communities
           </p>
-        </div>
+        </motion.div>
 
         {/* 4 Pillars */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {pillars.map(p => <PillarCard key={p.title} pillar={p} started={started} />)}
+          {pillars.map((p, idx) => <PillarCard key={p.title} pillar={p} started={started} idx={idx} />)}
         </div>
       </div>
     </section>

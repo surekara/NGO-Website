@@ -2,7 +2,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -25,6 +26,24 @@ import CreateFundraiserLink from "./pages/CreateFundraiserLink";
 
 const queryClient = new QueryClient();
 
+const PageTransition = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -32,28 +51,29 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
-        <Routes>          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/programs" element={<Programs />} />
-          <Route path="/programs/education" element={<EducationProgram />} />
-          <Route path="/programs/food-distribution" element={<FoodDistributionProgram />} />
-          <Route path="/programs/wellness" element={<WellnessProgram />} />
-          <Route path="/terms-of-service" element={<TermsOfService />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/refund-policy" element={<RefundPolicy />} />
-          <Route path="/impact" element={<Impact />} />
-          <Route path="/get-involved" element={<GetInvolved />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/donate" element={<Donate />} />
-          <Route path="/volunteer" element={<Volunteer />} />
-          <Route path="/partner" element={<Partner />} />
-          <Route path="/programs/tech-education" element={<EducationProgram />} />
-          <Route path="/programs/green-cloud" element={<WellnessProgram />} />
-          <Route path="/programs/training" element={<EducationProgram />} />
-          <Route path="/fundraise/:slug" element={<FundraiserPage />} />
-          <Route path="/create-fundraiser" element={<CreateFundraiserLink />} />
+        <Routes>
+          <Route path="/" element={<PageTransition><Index /></PageTransition>} />
+          <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+          <Route path="/programs" element={<PageTransition><Programs /></PageTransition>} />
+          <Route path="/programs/education" element={<PageTransition><EducationProgram /></PageTransition>} />
+          <Route path="/programs/food-distribution" element={<PageTransition><FoodDistributionProgram /></PageTransition>} />
+          <Route path="/programs/wellness" element={<PageTransition><WellnessProgram /></PageTransition>} />
+          <Route path="/terms-of-service" element={<PageTransition><TermsOfService /></PageTransition>} />
+          <Route path="/privacy-policy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
+          <Route path="/refund-policy" element={<PageTransition><RefundPolicy /></PageTransition>} />
+          <Route path="/impact" element={<PageTransition><Impact /></PageTransition>} />
+          <Route path="/get-involved" element={<PageTransition><GetInvolved /></PageTransition>} />
+          <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+          <Route path="/donate" element={<PageTransition><Donate /></PageTransition>} />
+          <Route path="/volunteer" element={<PageTransition><Volunteer /></PageTransition>} />
+          <Route path="/partner" element={<PageTransition><Partner /></PageTransition>} />
+          <Route path="/programs/tech-education" element={<PageTransition><EducationProgram /></PageTransition>} />
+          <Route path="/programs/green-cloud" element={<PageTransition><WellnessProgram /></PageTransition>} />
+          <Route path="/programs/training" element={<PageTransition><EducationProgram /></PageTransition>} />
+          <Route path="/fundraise/:slug" element={<PageTransition><FundraiserPage /></PageTransition>} />
+          <Route path="/create-fundraiser" element={<PageTransition><CreateFundraiserLink /></PageTransition>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
