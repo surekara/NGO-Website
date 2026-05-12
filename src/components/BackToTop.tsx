@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 const BackToTop = () => {

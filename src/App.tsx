@@ -58,7 +58,7 @@ const App = () => (
         <ScrollToTop />
         <BackToTop />
         <StickyCTA />
-        <CustomCursor />
+        {/* <CustomCursor /> */}
         <Routes>
           <Route path="/" element={<PageTransition><Index /></PageTransition>} />
           <Route path="/about" element={<PageTransition><About /></PageTransition>} />
