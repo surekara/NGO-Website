@@ -35,7 +35,7 @@ const socialLinks = [
     isImg: true,
     bg: "bg-gray-900",
     border: "border-gray-600/50 hover:border-white/70",
-    dot: "bg-black border border-gray-600",
+    dot: "bg-white",
     tag: "text-white font-bold",
     handleColor: "text-gray-300",
   },
