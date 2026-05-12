@@ -189,3 +189,56 @@
   background-color: rgb(250 204 21);
   margin-top: -0.125rem;
 }
+
+/* ─── Global Smooth Scroll ─── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Custom Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #FFD700; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #FFC107; }
+
+/* ─── Dot-grid background pattern ─── */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(255,215,0,0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.dot-grid-dark {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ─── Fade-in-up animation ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fadeInUp 0.7s ease-out forwards;
+}
+
+.animate-fade-up-delay-1 { animation: fadeInUp 0.7s 0.1s ease-out both; }
+.animate-fade-up-delay-2 { animation: fadeInUp 0.7s 0.2s ease-out both; }
+.animate-fade-up-delay-3 { animation: fadeInUp 0.7s 0.3s ease-out both; }
+
+/* ─── Gradient text utility ─── */
+.text-gradient-yellow {
+  background: linear-gradient(90deg, #FFD700, #FFC107, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Glow button effect ─── */
+.btn-glow {
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
+  transition: box-shadow 0.3s ease;
+}
+.btn-glow:hover {
+  box-shadow: 0 0 36px rgba(255, 215, 0, 0.5);
+}
