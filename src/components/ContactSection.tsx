@@ -13,6 +13,7 @@ const socialLinks = [
     border: "border-pink-400/30 hover:border-pink-400/60",
     dot: "bg-gradient-to-br from-pink-500 to-orange-400",
     tag: "text-pink-400",
+    handleColor: "text-gray-700 dark:text-gray-300",
   },
   {
     href: "https://snapchat.com/add/prachetasorg",
@@ -24,6 +25,7 @@ const socialLinks = [
     border: "border-yellow-400/30 hover:border-yellow-400/70",
     dot: "bg-yellow-400",
     tag: "text-yellow-400",
+    handleColor: "text-gray-700 dark:text-gray-300",
   },
   {
     href: "https://twitter.com/PrachetasFoundation",
@@ -31,10 +33,11 @@ const socialLinks = [
     platform: "X (Twitter)",
     logo: "/X_logo_2023_original.svg",
     isImg: true,
-    bg: "bg-white/5",
-    border: "border-white/20 hover:border-white/50",
-    dot: "bg-gray-200",
-    tag: "text-gray-300",
+    bg: "bg-gray-900",
+    border: "border-gray-600/50 hover:border-white/70",
+    dot: "bg-black border border-gray-600",
+    tag: "text-white font-bold",
+    handleColor: "text-gray-300",
   },
   {
     href: "https://www.linkedin.com/company/prachetas-foundation/",
@@ -46,6 +49,7 @@ const socialLinks = [
     border: "border-blue-500/30 hover:border-blue-400/70",
     dot: "bg-blue-500",
     tag: "text-blue-400",
+    handleColor: "text-gray-700 dark:text-gray-300",
   },
 ];
 
@@ -105,7 +109,7 @@ const ContactSection = () => {
                         : <Linkedin size={12} className="text-white" />
                       }
                     </div>
-                    <span className="text-sm text-gray-700 dark:text-gray-300 font-medium group-hover:text-gray-900 dark:group-hover:text-white transition-colors">{s.handle}</span>
+                    <span className={`text-sm font-medium transition-colors group-hover:opacity-100 ${s.handleColor}`}>{s.handle}</span>
                     <span className={`ml-auto text-[11px] font-semibold ${s.tag}`}>{s.platform}</span>
                   </a>
                 ))}
