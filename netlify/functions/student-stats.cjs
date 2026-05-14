@@ -28,6 +28,20 @@ exports.handler = async (event) => {
       GROUP BY referred_by
     `
 
+    const donorRows = await sql`
+      SELECT
+        referred_by,
+        donor_name,
+        amount,
+        subscription_id,
+        subscription_amount,
+        created_at
+      FROM donations
+      WHERE referred_by IS NOT NULL
+        AND status = 'completed'
+      ORDER BY created_at DESC
+    `
+
     const stats = {}
     for (const row of rows) {
       stats[row.referred_by] = {
@@ -38,7 +52,21 @@ exports.handler = async (event) => {
       }
     }
 
-    return { statusCode: 200, headers, body: JSON.stringify({ success: true, stats }) }
+    const donors = {}
+    for (const row of donorRows) {
+      if (!donors[row.referred_by]) {
+        donors[row.referred_by] = []
+      }
+      donors[row.referred_by].push({
+        name: row.donor_name || 'Anonymous',
+        amount: Number(row.amount),
+        date: new Date(row.created_at).toISOString().split('T')[0],
+        type: row.subscription_id ? 'SIP' : 'One-time',
+        sipAmount: row.subscription_amount ? Number(row.subscription_amount) : null,
+      })
+    }
+
+    return { statusCode: 200, headers, body: JSON.stringify({ success: true, stats, donors }) }
   } catch (err) {
     console.error('student-stats error:', err)
     return { statusCode: 500, headers, body: JSON.stringify({ success: false, error: err.message }) }
