@@ -23,6 +23,49 @@ exports.handler = async (event, context) => {
     return { statusCode: 200, headers, body: '' };
   }
 
+  if (event.httpMethod === 'GET') {
+    try {
+      const params = event.queryStringParameters || {};
+      if (params.slug) {
+        const rows = await sql`
+          SELECT
+            donor_name,
+            amount,
+            subscription_id,
+            subscription_amount,
+            created_at
+          FROM donations
+          WHERE referred_by = ${params.slug}
+            AND status = 'completed'
+          ORDER BY created_at DESC
+        `;
+        const donors = rows.map(row => ({
+          name: row.donor_name || 'Anonymous',
+          amount: Number(row.amount),
+          date: new Date(row.created_at).toISOString().split('T')[0],
+          type: row.subscription_id ? 'SIP' : 'One-time',
+          sipAmount: row.subscription_amount ? Number(row.subscription_amount) : null,
+        }));
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ success: true, donors })
+        };
+      }
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ success: false, error: 'Missing slug parameter' })
+      };
+    } catch (error) {
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ success: false, error: error.message })
+      };
+    }
+  }
+
   if (event.httpMethod === 'POST') {
     try {
       const donationData = JSON.parse(event.body);
