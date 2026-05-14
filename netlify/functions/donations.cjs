@@ -2,6 +2,7 @@ const { neon } = require('@neondatabase/serverless');
 
 const sql = neon(process.env.NETLIFY_DATABASE_URL);
 
+// Updated to support GET endpoint for fetching donors by slug
 const ensureReferredByColumn = async () => {
   try {
     await sql`ALTER TABLE donations ADD COLUMN IF NOT EXISTS referred_by VARCHAR(100)`;
