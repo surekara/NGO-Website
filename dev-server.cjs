@@ -32,6 +32,7 @@ const createOrderHandler = require('./netlify/functions/create-order.cjs');
 const verifyPaymentHandler = require('./netlify/functions/verify-payment.cjs');
 const createSubscriptionHandler = require('./netlify/functions/create-subscription.cjs');
 const getPlanIdHandler = require('./netlify/functions/get-plan-id.cjs');
+const directDonationsHandler = require('./netlify/functions/direct-donations.cjs');
 const testDatabaseHandler = require('./netlify/functions/test-database-routes.cjs');
 
 // Function wrapper to convert Netlify format to Express
@@ -85,6 +86,7 @@ app.all('/.netlify/functions/create-order', wrapNetlifyFunction(createOrderHandl
 app.all('/.netlify/functions/verify-payment', wrapNetlifyFunction(verifyPaymentHandler));
 app.all('/.netlify/functions/create-subscription', wrapNetlifyFunction(createSubscriptionHandler));
 app.all('/.netlify/functions/get-plan-id', wrapNetlifyFunction(getPlanIdHandler));
+app.all('/.netlify/functions/direct-donations', wrapNetlifyFunction(directDonationsHandler));
 app.all('/.netlify/functions/test-database-routes', wrapNetlifyFunction(testDatabaseHandler));
 
 // Health check
