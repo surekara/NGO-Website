@@ -9,6 +9,7 @@ const headers = {
   'Content-Type': 'application/json',
 }
 
+// Fetch donor history from Neon database grouped by student slug
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers, body: '' }
   if (event.httpMethod !== 'GET')
