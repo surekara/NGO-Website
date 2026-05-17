@@ -47,7 +47,7 @@ exports.handler = async (event) => {
     }
 
     const rows = await sql`
-      SELECT donor_name, amount, subscription_id, created_at, referred_by
+      SELECT donor_name, amount, subscription_id, created_at, referred_by, message
       FROM donations
       WHERE status = 'completed'
       ORDER BY created_at DESC
@@ -60,6 +60,7 @@ exports.handler = async (event) => {
       time: new Date(row.created_at).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
       type: row.subscription_id ? 'SIP' : 'One-time',
       referredBy: row.referred_by || null,
+      message: row.message || '',
     }))
 
     return {
