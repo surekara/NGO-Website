@@ -57,6 +57,7 @@ exports.handler = async (event) => {
       name: row.donor_name || 'Anonymous',
       amount: Number(row.amount),
       date: new Date(row.created_at).toISOString().split('T')[0],
+      time: new Date(row.created_at).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
       type: row.subscription_id ? 'SIP' : 'One-time',
       referredBy: row.referred_by || null,
     }))
