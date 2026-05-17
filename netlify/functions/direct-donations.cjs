@@ -47,10 +47,9 @@ exports.handler = async (event) => {
     }
 
     const rows = await sql`
-      SELECT donor_name, amount, subscription_id, created_at
+      SELECT donor_name, amount, subscription_id, created_at, referred_by
       FROM donations
       WHERE status = 'completed'
-        AND referred_by IS NULL
       ORDER BY created_at DESC
     `
 
@@ -59,6 +58,7 @@ exports.handler = async (event) => {
       amount: Number(row.amount),
       date: new Date(row.created_at).toISOString().split('T')[0],
       type: row.subscription_id ? 'SIP' : 'One-time',
+      referredBy: row.referred_by || null,
     }))
 
     return {
