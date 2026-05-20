@@ -65,7 +65,8 @@ const SIP_AMOUNTS = [
 
 const MultistepDonation = () => {
   const [searchParams] = useSearchParams();
-  const refSlug = searchParams.get("ref");
+  const rawRefSlug = searchParams.get("ref");
+  const refSlug = rawRefSlug ? rawRefSlug.replace(/[^a-z0-9-]/gi, '').toLowerCase() : null;
 
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedAmount, setSelectedAmount] = useState<string | null>("1000");
