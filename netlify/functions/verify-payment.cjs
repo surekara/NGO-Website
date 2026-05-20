@@ -1,5 +1,6 @@
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
+const { neon } = require('@neondatabase/serverless');
 
 // Initialize Razorpay with environment variables
 const razorpay = new Razorpay({
@@ -74,6 +75,21 @@ exports.handler = async (event, context) => {
       }
     } else {
       throw new Error('Missing payment details');
+    }
+
+    // Update donation status to completed in DB
+    try {
+      const sql = neon(process.env.NETLIFY_DATABASE_URL)
+      if (razorpay_payment_id) {
+        await sql`
+          UPDATE donations
+          SET status = 'completed', payment_id = ${razorpay_payment_id}
+          WHERE (payment_id = ${razorpay_payment_id} OR payment_id IS NULL)
+            AND status != 'completed'
+        `
+      }
+    } catch (dbErr) {
+      console.error('DB update error after verify:', dbErr.message)
     }
 
     return {
