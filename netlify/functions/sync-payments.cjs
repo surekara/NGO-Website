@@ -79,13 +79,61 @@ exports.handler = async (event) => {
       }
     }
 
+    // --- Reconcile existing DB payments that have referred_by = null ---
+    // Fetch up to 100 payments in our DB missing referred_by
+    const nullRows = await sql`
+      SELECT payment_id FROM donations
+      WHERE referred_by IS NULL
+        AND status = 'completed'
+        AND payment_id IS NOT NULL
+        AND payment_id NOT LIKE 'HIST%'
+        AND payment_id NOT LIKE 'UTR%'
+      LIMIT 100
+    `
+
+    let reconciled = 0
+    for (const row of nullRows) {
+      try {
+        const rzpPayRes = await fetch(
+          `https://api.razorpay.com/v1/payments/${row.payment_id}`,
+          { headers: { Authorization: `Basic ${auth}` } }
+        )
+        if (!rzpPayRes.ok) continue
+        const rzpPay = await rzpPayRes.json()
+        const notes = rzpPay.notes || {}
+        const referredBy = notes.referredBy || notes.referred_by || null
+        const donorName = notes.donorName || notes.donor_name || null
+
+        if (referredBy) {
+          if (donorName) {
+            await sql`
+              UPDATE donations
+              SET referred_by = ${referredBy}, donor_name = ${donorName}
+              WHERE payment_id = ${row.payment_id} AND referred_by IS NULL
+            `
+          } else {
+            await sql`
+              UPDATE donations
+              SET referred_by = ${referredBy}
+              WHERE payment_id = ${row.payment_id} AND referred_by IS NULL
+            `
+          }
+          reconciled++
+          console.log(`[sync] Reconciled: ${row.payment_id} -> ${referredBy}`)
+        }
+      } catch (e) {
+        // skip individual failures
+      }
+    }
+
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify({
         success: true,
-        message: `Sync complete. ${synced} new payments added, ${skipped} already existed.`,
+        message: `Sync complete. ${synced} new payments added, ${reconciled} unattributed payments fixed, ${skipped} already existed.`,
         synced,
+        reconciled,
         skipped,
         total: rzpData.items.length,
       }),
