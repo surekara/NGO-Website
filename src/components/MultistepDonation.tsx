@@ -153,12 +153,15 @@ const MultistepDonation = () => {
         phone: values.phone
       };
       
-      // Notes for the payment
-      const notes = {
+      // Notes for the payment — referred_by is critical for attribution
+      const notes: Record<string, string> = {
         donor_name: values.fullName,
+        donorName: values.fullName,
+        donorEmail: values.email,
         address: values.address,
         pan_card: values.panCard || "Not provided",
-        payment_for: "Donation to Prachetas Foundation"
+        payment_for: "Donation to Prachetas Foundation",
+        ...(refSlug ? { referred_by: refSlug, referredBy: refSlug } : {})
       };
       
       // Handle payment based on type (one-time or recurring)
