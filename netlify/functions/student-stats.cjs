@@ -34,7 +34,6 @@ exports.handler = async (event) => {
         donor_name,
         amount,
         subscription_id,
-        subscription_amount,
         created_at
       FROM donations
       WHERE referred_by IS NOT NULL
@@ -62,7 +61,6 @@ exports.handler = async (event) => {
         amount: Number(row.amount),
         date: new Date(row.created_at).toISOString().split('T')[0],
         type: row.subscription_id ? 'SIP' : 'One-time',
-        sipAmount: row.subscription_amount ? Number(row.subscription_amount) : null,
       })
     }
 
