@@ -7,6 +7,7 @@ const headers = {
   'Access-Control-Allow-Headers': 'Content-Type',
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
   'Content-Type': 'application/json',
+  'Cache-Control': 'no-store, no-cache, must-revalidate',
 }
 
 exports.handler = async (event) => {
