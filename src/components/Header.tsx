@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,15 +20,20 @@ const navItems: NavItem[] = [
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { theme, toggle } = useTheme();
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <motion.header
-      className="bg-black/95 backdrop-blur-md text-white py-4 sticky top-0 z-50 shadow-md border-b border-white/10"
+      className={`bg-black/95 backdrop-blur-md text-white sticky top-0 z-50 border-b border-white/10 transition-all duration-300 ${scrolled ? 'py-2 shadow-xl shadow-black/40' : 'py-4 shadow-md'}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -40,18 +45,28 @@ const Header = () => {
             <motion.img
               src="/New_Logo_Whole-White.png"
               alt="Prachetas Foundation Logo"
-              className="h-12 w-auto"
+              className={`w-auto transition-all duration-300 ${scrolled ? 'h-8' : 'h-12'}`}
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             />
             <div className="flex flex-col">
-              <span className="font-bold text-2xl">
+              <span className={`font-bold transition-all duration-300 ${scrolled ? 'text-xl' : 'text-2xl'}`}>
                 <span className="text-white">PRACHETAS</span>{" "}
                 <span className="text-prachetas-yellow group-hover:text-yellow-300 transition-colors">FOUNDATION</span>
               </span>
-              <span className="text-prachetas-yellow text-sm tracking-wider font-medium">
-                WHERE COMPASSION MEETS ACTION
-              </span>
+              <AnimatePresence>
+                {!scrolled && (
+                  <motion.span
+                    className="text-prachetas-yellow text-sm tracking-wider font-medium"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    WHERE COMPASSION MEETS ACTION
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </div>
           </Link>
 

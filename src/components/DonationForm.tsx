@@ -143,7 +143,8 @@ const DonationForm = () => {
           notes: {
             donationId,
             donorName: values.fullName,
-            donorEmail: values.email
+            donorEmail: values.email,
+            message: values.message || ''
           }
         })
       });
@@ -219,7 +220,8 @@ const DonationForm = () => {
           },
           notes: {
             donationId,
-            donationType: 'monthly'
+            donationType: 'monthly',
+            message: values.message || ''
           }
         })
       });

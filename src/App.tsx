@@ -8,6 +8,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import ProgressBar from "./components/ProgressBar";
 import BackToTop from "./components/BackToTop";
 import StickyCTA from "./components/StickyCTA";
+import WhatsAppFloat from "./components/WhatsAppFloat";
 import CustomCursor from "./components/CustomCursor";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -58,6 +59,7 @@ const App = () => (
         <ScrollToTop />
         <BackToTop />
         <StickyCTA />
+        <WhatsAppFloat />
         {/* <CustomCursor /> */}
         <Routes>
           <Route path="/" element={<PageTransition><Index /></PageTransition>} />
