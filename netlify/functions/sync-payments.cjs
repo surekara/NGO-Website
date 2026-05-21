@@ -80,7 +80,7 @@ exports.handler = async (event) => {
     }
 
     // --- Reconcile existing DB payments that have referred_by = null ---
-    // Fetch up to 100 payments in our DB missing referred_by
+    // Only process 10 per call to stay within Netlify's timeout
     const nullRows = await sql`
       SELECT payment_id FROM donations
       WHERE referred_by IS NULL
@@ -88,42 +88,47 @@ exports.handler = async (event) => {
         AND payment_id IS NOT NULL
         AND payment_id NOT LIKE 'HIST%'
         AND payment_id NOT LIKE 'UTR%'
-      LIMIT 100
+      LIMIT 10
     `
 
     let reconciled = 0
-    for (const row of nullRows) {
-      try {
-        const rzpPayRes = await fetch(
-          `https://api.razorpay.com/v1/payments/${row.payment_id}`,
-          { headers: { Authorization: `Basic ${auth}` } }
-        )
-        if (!rzpPayRes.ok) continue
-        const rzpPay = await rzpPayRes.json()
-        const notes = rzpPay.notes || {}
-        const referredBy = notes.referredBy || notes.referred_by || null
-        const donorName = notes.donorName || notes.donor_name || null
-
-        if (referredBy) {
-          if (donorName) {
-            await sql`
-              UPDATE donations
-              SET referred_by = ${referredBy}, donor_name = ${donorName}
-              WHERE payment_id = ${row.payment_id} AND referred_by IS NULL
-            `
-          } else {
-            await sql`
-              UPDATE donations
-              SET referred_by = ${referredBy}
-              WHERE payment_id = ${row.payment_id} AND referred_by IS NULL
-            `
+    // Fetch all in parallel
+    const rzpResults = await Promise.all(
+      nullRows.map(async (row) => {
+        try {
+          const res = await fetch(
+            `https://api.razorpay.com/v1/payments/${row.payment_id}`,
+            { headers: { Authorization: `Basic ${auth}` } }
+          )
+          if (!res.ok) return null
+          const pay = await res.json()
+          const notes = pay.notes || {}
+          return {
+            payment_id: row.payment_id,
+            referredBy: notes.referredBy || notes.referred_by || null,
+            donorName: notes.donorName || notes.donor_name || null,
           }
-          reconciled++
-          console.log(`[sync] Reconciled: ${row.payment_id} -> ${referredBy}`)
+        } catch { return null }
+      })
+    )
+
+    for (const result of rzpResults) {
+      if (!result || !result.referredBy) continue
+      try {
+        if (result.donorName) {
+          await sql`
+            UPDATE donations SET referred_by = ${result.referredBy}, donor_name = ${result.donorName}
+            WHERE payment_id = ${result.payment_id} AND referred_by IS NULL
+          `
+        } else {
+          await sql`
+            UPDATE donations SET referred_by = ${result.referredBy}
+            WHERE payment_id = ${result.payment_id} AND referred_by IS NULL
+          `
         }
-      } catch (e) {
-        // skip individual failures
-      }
+        reconciled++
+        console.log(`[sync] Reconciled: ${result.payment_id} -> ${result.referredBy}`)
+      } catch (e) { /* skip */ }
     }
 
     return {
