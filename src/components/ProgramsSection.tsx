@@ -14,7 +14,7 @@ const programs = [
     image: "/Copy of IMG-20250610-WA0013.jpg",
     stat: "3,000+",
     statLabel: "Students Reached",
-    accent: "from-blue-600/80 to-indigo-900/90",
+    accent: "from-transparent via-black/20 to-black/92",
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ const programs = [
     image: "/fooddistribution.png",
     stat: "18,000+",
     statLabel: "Meals Served",
-    accent: "from-orange-600/80 to-red-900/90",
+    accent: "from-transparent via-black/20 to-black/92",
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ const programs = [
     image: "/Copy of WhatsApp Image 2025-02-27 at 16.10.09 (1).jpeg",
     stat: "50+",
     statLabel: "Camps Conducted",
-    accent: "from-pink-600/80 to-rose-900/90",
+    accent: "from-transparent via-black/20 to-black/92",
   },
 ];
 
@@ -119,7 +119,7 @@ const ProgramsSection = () => {
               >
                 <Link to={p.link} className="block w-full h-full">
                   <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                  <div className={`absolute inset-0 bg-gradient-to-r ${p.accent} opacity-80`} />
+                  <div className={`absolute inset-0 bg-gradient-to-t ${p.accent} opacity-100`} />
                   <div className="absolute inset-0 p-6 flex flex-col justify-end">
                     <div className="flex items-center gap-2 mb-1.5">
                       <div className="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center">

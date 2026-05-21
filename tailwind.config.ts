@@ -18,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: ['Plus Jakarta Sans', 'sans-serif'],
+				heading: ['Playfair Display', 'Georgia', 'serif'],
+			},
 			colors: {
 				// Black and Yellow theme colors
 				'prachetas': {

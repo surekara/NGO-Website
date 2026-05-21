@@ -4,6 +4,20 @@
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
 
+/* Global typography — Plus Jakarta Sans for body, Playfair Display for section headings */
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* Section h2 headings use Playfair Display for elegance
+     Exception: header logo spans keep their own bold sans-serif */
+  section h2,
+  .section-heading {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+}
+
 @layer base {
   :root {
     /* Primary Colors - Improved readability and section flow */

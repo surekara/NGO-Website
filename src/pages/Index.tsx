@@ -8,8 +8,6 @@ import TestimonialsSection from "../components/TestimonialsSection";
 import GallerySection from "../components/GallerySection";
 import GetInvolvedSection from "../components/GetInvolvedSection";
 import FundraiserStrip from "../components/FundraiserStrip";
-import TrustBadgesBar from "../components/TrustBadgesBar";
-import LiveDonationTicker from "../components/LiveDonationTicker";
 import ContactSection from "../components/ContactSection";
 import Footer from "../components/Footer";
 
@@ -23,9 +21,6 @@ const Index = () => {
         <HeroSection />
       </section>
       
-      {/* Trust Badges Marquee */}
-      <TrustBadgesBar />
-
       {/* Section Divider */}
       <div className="section-divider"></div>
       
@@ -55,9 +50,6 @@ const Index = () => {
 
       {/* Fundraiser Strip */}
       <FundraiserStrip />
-
-      {/* Live Donation Ticker */}
-      <LiveDonationTicker />
 
       {/* Section Divider */}
       <div className="section-divider"></div>
