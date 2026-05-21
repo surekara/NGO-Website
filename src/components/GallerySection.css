@@ -68,6 +68,11 @@
   box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
 }
 
+/* Crop from top — hides GPS watermarks at image bottom */
+.gallery-image-crop-top {
+  object-position: top center;
+}
+
 /* Button wrapper for images */
 .gallery-image-button {
   border: none;

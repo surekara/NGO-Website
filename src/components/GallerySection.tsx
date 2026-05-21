@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import './GallerySection.css';
 
-// Using the images available in the public folder
-const images = [
-  '/Copy of 19f2a1ee-42ec-4015-8100-bb731905297a.jpeg',
-  '/Copy of 9c9d2438-adde-413f-862a-31baebd1ec25.jpeg',
-  '/Copy of IMG-20250610-WA0013.jpg',
-  '/Copy of IMG-20250610-WA0020.jpg',
-  '/Copy of IMG-20250610-WA0028.jpg',
-  '/Copy of WhatsApp Image 2024-12-18 at 08.38.42.jpeg',
-  '/Copy of WhatsApp Image 2025-02-26 at 15.50.55 (1).jpeg',
-  '/Copy of WhatsApp Image 2025-02-26 at 15.50.57.jpeg',
-  '/Copy of WhatsApp Image 2025-02-26 at 15.41.35 (1).jpeg',
-  '/Copy of WhatsApp Image 2025-02-27 at 16.10.09 (1).jpeg',
-  '/Copy of WhatsApp Image 2025-02-27 at 16.15.54.jpeg',
-  '/Copy of WhatsApp Image 2025-03-04 at 17.08.10 (1).jpeg',
+interface GalleryImage { src: string; cropTop?: boolean }
+
+// New photos + non-duplicate existing gallery images
+// cropTop: true = object-position top, hides GPS watermarks at bottom
+const images: GalleryImage[] = [
+  { src: '/gallery-new-1.jpg', cropTop: true },   // 3 students at shop
+  { src: '/gallery-new-2.jpg' },                   // group cleanup drive
+  { src: '/gallery-new-3.jpg', cropTop: true },   // food serving
+  { src: '/gallery-new-4.jpg' },                   // onboarding session
+  { src: '/gallery-new-5.jpg', cropTop: true },   // volunteers with family
+  { src: '/Copy of 19f2a1ee-42ec-4015-8100-bb731905297a.jpeg' },
+  { src: '/Copy of 9c9d2438-adde-413f-862a-31baebd1ec25.jpeg' },
+  { src: '/Copy of IMG-20250610-WA0020.jpg' },
+  { src: '/Copy of IMG-20250610-WA0028.jpg' },
+  { src: '/Copy of WhatsApp Image 2024-12-18 at 08.38.42.jpeg' },
+  { src: '/Copy of WhatsApp Image 2025-02-26 at 15.50.57.jpeg' },
+  { src: '/Copy of WhatsApp Image 2025-03-04 at 17.08.10 (1).jpeg' },
 ];
 
 const GallerySection: React.FC = () => {
@@ -30,13 +33,8 @@ const GallerySection: React.FC = () => {
     setLightboxOpen(false);
   };
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
+  const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -92,18 +90,15 @@ const GallerySection: React.FC = () => {
         {/* Row 1 - Slowest */}
         <div className="scrolling-row-container">
           <div className="scrolling-row animate-scroll-slow">
-            {[...images, ...images].map((src, index) => (
+            {[...images, ...images].map((img, index) => (
               <button
-                key={`${src}-row1-${index}`}
+                key={`row1-${index}`}
                 className="gallery-image-button"
                 onClick={() => openLightbox(index % images.length)}
-                aria-label={`View image ${(index % images.length) + 1} in full size`}
+                aria-label={`View image ${(index % images.length) + 1}`}
               >
-                <img
-                  src={src}
-                  alt={`Community work ${(index % images.length) + 1}`}
-                  className="gallery-image"
-                />
+                <img src={img.src} alt={`Community work ${(index % images.length) + 1}`}
+                  className={`gallery-image${img.cropTop ? ' gallery-image-crop-top' : ''}`} />
               </button>
             ))}
           </div>
@@ -112,20 +107,13 @@ const GallerySection: React.FC = () => {
         {/* Row 2 - Medium Speed */}
         <div className="scrolling-row-container">
           <div className="scrolling-row animate-scroll-medium">
-            {[...images.slice(4), ...images.slice(0, 4), ...images.slice(4), ...images.slice(0, 4)].map((src, index) => {
+            {[...images.slice(4), ...images.slice(0, 4), ...images.slice(4), ...images.slice(0, 4)].map((img, index) => {
               const imageIndex = (index + 4) % images.length;
               return (
-                <button
-                  key={`${src}-row2-${index}`}
-                  className="gallery-image-button"
-                  onClick={() => openLightbox(imageIndex)}
-                  aria-label={`View image ${imageIndex + 1} in full size`}
-                >
-                  <img
-                    src={src}
-                    alt={`Foundation activities ${imageIndex + 1}`}
-                    className="gallery-image"
-                  />
+                <button key={`row2-${index}`} className="gallery-image-button"
+                  onClick={() => openLightbox(imageIndex)} aria-label={`View image ${imageIndex + 1}`}>
+                  <img src={img.src} alt={`Foundation activities ${imageIndex + 1}`}
+                    className={`gallery-image${img.cropTop ? ' gallery-image-crop-top' : ''}`} />
                 </button>
               );
             })}
@@ -135,28 +123,13 @@ const GallerySection: React.FC = () => {
         {/* Row 3 - Fastest */}
         <div className="scrolling-row-container">
           <div className="scrolling-row animate-scroll-fast">
-            {[...images.slice(8), ...images.slice(0, 8), ...images.slice(8), ...images.slice(0, 8)].map((src, index) => {
-              let imageIndex;
-              if (index < 4) {
-                imageIndex = index + 8;
-              } else if (index < 12) {
-                imageIndex = index - 4;
-              } else {
-                imageIndex = (index - 12) % images.length;
-              }
-              
+            {[...images.slice(7), ...images.slice(0, 7), ...images.slice(7), ...images.slice(0, 7)].map((img, index) => {
+              const imageIndex = (index + 7) % images.length;
               return (
-                <button
-                  key={`${src}-row3-${index}`}
-                  className="gallery-image-button"
-                  onClick={() => openLightbox(imageIndex)}
-                  aria-label={`View image ${imageIndex + 1} in full size`}
-                >
-                  <img
-                    src={src}
-                    alt={`Outreach programs ${imageIndex + 1}`}
-                    className="gallery-image"
-                  />
+                <button key={`row3-${index}`} className="gallery-image-button"
+                  onClick={() => openLightbox(imageIndex)} aria-label={`View image ${imageIndex + 1}`}>
+                  <img src={img.src} alt={`Outreach programs ${imageIndex + 1}`}
+                    className={`gallery-image${img.cropTop ? ' gallery-image-crop-top' : ''}`} />
                 </button>
               );
             })}
@@ -188,7 +161,7 @@ const GallerySection: React.FC = () => {
             </button>
             
             <img
-              src={images[currentImageIndex]}
+              src={images[currentImageIndex].src}
               alt={`Foundation work ${currentImageIndex + 1}`}
               className="lightbox-image"
             />
