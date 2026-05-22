@@ -24,10 +24,10 @@ const Footer = () => {
           >
             <div className="flex flex-col mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               <span className="font-bold italic leading-none text-white text-[28px]" style={{ letterSpacing: '0.04em' }}>
-                Prachetas
+                PRACHETAS
               </span>
               <span className="font-semibold text-prachetas-yellow text-[10px] uppercase mt-0.5" style={{ letterSpacing: '0.45em' }}>
-                Foundation
+                FOUNDATION
               </span>
               <span className="text-white/40 text-[9px] mt-1.5" style={{ letterSpacing: '0.18em', fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic' }}>
                 Registered Charitable Trust · MAHA/953/2022

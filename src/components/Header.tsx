@@ -55,12 +55,12 @@ const Header = () => {
                   className={`font-bold italic leading-none text-white transition-all duration-300 ${scrolled ? 'text-[22px]' : 'text-[30px]'}`}
                   style={{ letterSpacing: '0.04em' }}
                 >
-                  Prachetas
+                  PRACHETAS
                 </span>
                 <span
                   className={`font-semibold tracking-[0.45em] uppercase text-prachetas-yellow group-hover:text-yellow-300 transition-all duration-300 ${scrolled ? 'text-[8.5px]' : 'text-[11px]'}`}
                 >
-                  Foundation
+                  FOUNDATION
                 </span>
               </div>
               <AnimatePresence>
