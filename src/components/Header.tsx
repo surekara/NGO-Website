@@ -49,21 +49,25 @@ const Header = () => {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             />
-            <div className="flex flex-col leading-none gap-0.5">
-              <div className={`flex flex-col transition-all duration-300 ${scrolled ? 'gap-0' : 'gap-0.5'}`}
-                style={{ fontFamily: "'Cinzel', serif" }}>
-                <span className={`font-black tracking-[0.12em] text-white transition-all duration-300 ${scrolled ? 'text-lg' : 'text-2xl'}`}>
-                  PRACHETAS
+            <div className="flex flex-col leading-none">
+              <div className="flex flex-col" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                <span
+                  className={`font-bold italic leading-none text-white transition-all duration-300 ${scrolled ? 'text-[22px]' : 'text-[30px]'}`}
+                  style={{ letterSpacing: '0.04em' }}
+                >
+                  Prachetas
                 </span>
-                <span className={`font-semibold tracking-[0.35em] text-prachetas-yellow group-hover:text-yellow-300 transition-all duration-300 ${scrolled ? 'text-[10px]' : 'text-sm'}`}>
-                  FOUNDATION
+                <span
+                  className={`font-semibold tracking-[0.45em] uppercase text-prachetas-yellow group-hover:text-yellow-300 transition-all duration-300 ${scrolled ? 'text-[8.5px]' : 'text-[11px]'}`}
+                >
+                  Foundation
                 </span>
               </div>
               <AnimatePresence>
                 {!scrolled && (
                   <motion.span
-                    className="text-white/40 text-[9px] tracking-[0.25em] font-light mt-0.5"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                    className="text-white/35 tracking-[0.22em] mt-1"
+                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '7.5px', fontWeight: 400 }}
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
