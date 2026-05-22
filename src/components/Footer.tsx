@@ -22,11 +22,16 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.1, duration: 0.6 }}
           >
-            <div className="flex flex-col mb-6">
-              <span className="font-bold text-2xl">
-                <span className="text-white">PRACHETAS</span> <span className="text-prachetas-yellow">FOUNDATION</span>
+            <div className="flex flex-col mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+              <span className="font-bold italic leading-none text-white text-[28px]" style={{ letterSpacing: '0.04em' }}>
+                Prachetas
               </span>
-              <span className="text-prachetas-yellow text-sm tracking-wider">WHERE COMPASSION MEETS ACTION</span>
+              <span className="font-semibold text-prachetas-yellow text-[10px] uppercase mt-0.5" style={{ letterSpacing: '0.45em' }}>
+                Foundation
+              </span>
+              <span className="text-white/40 text-[9px] mt-1.5" style={{ letterSpacing: '0.18em', fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic' }}>
+                Registered Charitable Trust · MAHA/953/2022
+              </span>
             </div>
             <p className="text-gray-400 mb-6">
               Building stronger communities through collaborative initiatives, empowering individuals, and fostering sustainable development worldwide.
