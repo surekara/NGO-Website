@@ -49,15 +49,21 @@ const Header = () => {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             />
-            <div className="flex flex-col">
-              <span className={`font-bold transition-all duration-300 ${scrolled ? 'text-xl' : 'text-2xl'}`}>
-                <span className="text-white">PRACHETAS</span>{" "}
-                <span className="text-prachetas-yellow group-hover:text-yellow-300 transition-colors">FOUNDATION</span>
-              </span>
+            <div className="flex flex-col leading-none gap-0.5">
+              <div className={`flex flex-col transition-all duration-300 ${scrolled ? 'gap-0' : 'gap-0.5'}`}
+                style={{ fontFamily: "'Cinzel', serif" }}>
+                <span className={`font-black tracking-[0.12em] text-white transition-all duration-300 ${scrolled ? 'text-lg' : 'text-2xl'}`}>
+                  PRACHETAS
+                </span>
+                <span className={`font-semibold tracking-[0.35em] text-prachetas-yellow group-hover:text-yellow-300 transition-all duration-300 ${scrolled ? 'text-[10px]' : 'text-sm'}`}>
+                  FOUNDATION
+                </span>
+              </div>
               <AnimatePresence>
                 {!scrolled && (
                   <motion.span
-                    className="text-prachetas-yellow text-sm tracking-wider font-medium"
+                    className="text-white/40 text-[9px] tracking-[0.25em] font-light mt-0.5"
+                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
