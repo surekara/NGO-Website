@@ -85,57 +85,43 @@ const GallerySection: React.FC = () => {
         </div>
       </div>
 
-      {/* Vertically stacked rows with continuous scrolling */}
-      <div className="flex flex-col gap-5">
-        {/* Row 1 - Slowest */}
-        <div className="scrolling-row-container">
-          <div className="scrolling-row animate-scroll-slow">
-            {[...images, ...images].map((img, index) => (
-              <button
-                key={`row1-${index}`}
-                className="gallery-image-button"
-                onClick={() => openLightbox(index % images.length)}
-                aria-label={`View image ${(index % images.length) + 1}`}
-              >
-                <img src={img.src} alt={`Community work ${(index % images.length) + 1}`}
-                  className={`gallery-image${img.cropTop ? ' gallery-image-crop-top' : ''}`} />
-              </button>
-            ))}
-          </div>
-        </div>
+      {/* Split images into 3 non-overlapping groups so each row shows unique photos */}
+      {(() => {
+        const row1 = images.filter((_, i) => i % 3 === 0);  // indices 0,3,6,9
+        const row2 = images.filter((_, i) => i % 3 === 1);  // indices 1,4,7,10
+        const row3 = images.filter((_, i) => i % 3 === 2);  // indices 2,5,8,11
+        const origIdx = (rowImages: GalleryImage[], localIdx: number) =>
+          images.indexOf(rowImages[localIdx % rowImages.length]);
 
-        {/* Row 2 - Medium Speed */}
-        <div className="scrolling-row-container">
-          <div className="scrolling-row animate-scroll-medium">
-            {[...images.slice(4), ...images.slice(0, 4), ...images.slice(4), ...images.slice(0, 4)].map((img, index) => {
-              const imageIndex = (index + 4) % images.length;
-              return (
-                <button key={`row2-${index}`} className="gallery-image-button"
-                  onClick={() => openLightbox(imageIndex)} aria-label={`View image ${imageIndex + 1}`}>
-                  <img src={img.src} alt={`Foundation activities ${imageIndex + 1}`}
-                    className={`gallery-image${img.cropTop ? ' gallery-image-crop-top' : ''}`} />
-                </button>
-              );
-            })}
+        const renderRow = (
+          rowImages: GalleryImage[],
+          animClass: string,
+          rowKey: string,
+        ) => (
+          <div className="scrolling-row-container">
+            <div className={`scrolling-row ${animClass}`}>
+              {[...rowImages, ...rowImages].map((img, index) => {
+                const globalIdx = origIdx(rowImages, index);
+                return (
+                  <button key={`${rowKey}-${index}`} className="gallery-image-button"
+                    onClick={() => openLightbox(globalIdx)} aria-label={`View image ${globalIdx + 1}`}>
+                    <img src={img.src} alt={`Foundation work ${globalIdx + 1}`}
+                      className={`gallery-image${img.cropTop ? ' gallery-image-crop-top' : ''}`} />
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        );
 
-        {/* Row 3 - Fastest */}
-        <div className="scrolling-row-container">
-          <div className="scrolling-row animate-scroll-fast">
-            {[...images.slice(7), ...images.slice(0, 7), ...images.slice(7), ...images.slice(0, 7)].map((img, index) => {
-              const imageIndex = (index + 7) % images.length;
-              return (
-                <button key={`row3-${index}`} className="gallery-image-button"
-                  onClick={() => openLightbox(imageIndex)} aria-label={`View image ${imageIndex + 1}`}>
-                  <img src={img.src} alt={`Outreach programs ${imageIndex + 1}`}
-                    className={`gallery-image${img.cropTop ? ' gallery-image-crop-top' : ''}`} />
-                </button>
-              );
-            })}
+        return (
+          <div className="flex flex-col gap-5">
+            {renderRow(row1, 'animate-scroll-slow',   'row1')}
+            {renderRow(row2, 'animate-scroll-medium', 'row2')}
+            {renderRow(row3, 'animate-scroll-fast',   'row3')}
           </div>
-        </div>
-      </div>
+        );
+      })()}
 
       {/* Lightbox Modal */}
       {lightboxOpen && (
