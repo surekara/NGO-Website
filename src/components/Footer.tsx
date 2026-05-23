@@ -22,14 +22,14 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.1, duration: 0.6 }}
           >
-            <div className="flex flex-col mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-              <span className="font-bold italic leading-none text-white text-[28px]" style={{ letterSpacing: '0.04em' }}>
+            <div className="flex flex-col mb-6" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+              <span className="font-extrabold uppercase leading-none text-white text-[28px]" style={{ letterSpacing: '0.015em' }}>
                 PRACHETAS
               </span>
-              <span className="font-semibold text-prachetas-yellow text-[10px] uppercase mt-0.5" style={{ letterSpacing: '0.45em' }}>
+              <span className="font-black uppercase leading-none text-prachetas-yellow text-[28px] mt-0.5" style={{ letterSpacing: '0.008em' }}>
                 FOUNDATION
               </span>
-              <span className="text-white/40 text-[9px] mt-1.5" style={{ letterSpacing: '0.18em', fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic' }}>
+              <span className="text-white/40 text-[9px] mt-1.5" style={{ letterSpacing: '0.18em', fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}>
                 Registered Charitable Trust · MAHA/953/2022
               </span>
             </div>
