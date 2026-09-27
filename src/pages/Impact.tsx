@@ -2,30 +2,32 @@ import { BarChart, TrendingUp, Users, Heart } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { CountUp, Shimmer, Shine, Sparkles, SpotlightCard, Stagger, StaggerItem, Tilt } from "@/components/motion";
+import { CTASection, PageHero, SectionTitle } from "@/components/PageFx";
 
 const ImpactPage = () => {
   const impactStats = [
     {
-      number: "50,000+",
+      value: 50000, format: (n: number) => `${n.toLocaleString("en-IN")}+`,
       label: "Lives Impacted",
       icon: Users,
       description: "Direct beneficiaries of our programs across communities"
     },
     {
-      number: "100+",
+      value: 100, format: (n: number) => `${n}+`,
       label: "Villages Reached",
       icon: TrendingUp,
       description: "Communities where we've implemented our programs"
     },
     {
-      number: "₹2Cr+",
+      value: 2, format: (n: number) => `₹${n}Cr+`,
       label: "Funds Utilized",
       icon: BarChart,
       description: "Effectively allocated for maximum social impact"
     },
     {
-      number: "1000+",
+      value: 1000, format: (n: number) => `${n.toLocaleString("en-IN")}+`,
       label: "Volunteers",
       icon: Heart,
       description: "Dedicated individuals supporting our mission"
@@ -57,129 +59,101 @@ const ImpactPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-clip">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="relative py-20 bg-white text-prachetas-black">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Impact</h1>
-            <p className="text-xl text-prachetas-medium-gray mb-8 leading-relaxed">
-              See how we're creating measurable change in communities and transforming lives
-              through our dedicated programs and initiatives.
-            </p>
-          </div>
-        </div>
-      </section>
+
+      <PageHero
+        eyebrow="📈 Measurable Change"
+        title="Our"
+        highlight="Impact"
+        image="/gallery-new-2.jpg"
+        subtitle={<p>See how we're creating measurable change in communities and transforming lives through our dedicated programs and initiatives.</p>}
+      />
 
       {/* Impact Stats */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-prachetas-black">Numbers That Matter</h2>
-            <p className="text-prachetas-medium-gray text-lg">
-              Measurable impact through dedicated service and community engagement
-            </p>
-          </div>
-          <div className="grid md:grid-cols-4 gap-8">
+          <SectionTitle title="Numbers That" highlight="Matter" subtitle="Measurable impact through dedicated service and community engagement" />
+          <Stagger className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto" gap={0.12}>
             {impactStats.map((stat, index) => (
-              <div key={`${stat.label}-${index}`} className="bg-white rounded-xl p-8 text-center transform transition-all duration-300 hover:scale-[1.02] shadow-md border border-gray-200">
-                <stat.icon className="h-12 w-12 text-prachetas-yellow mx-auto mb-4" />
-                <div className="text-4xl font-bold text-prachetas-black mb-2">{stat.number}</div>
-                <div className="text-xl font-semibold text-prachetas-yellow mb-3">{stat.label}</div>
-                <p className="text-prachetas-medium-gray">{stat.description}</p>
-              </div>
+              <SpotlightCard key={`${stat.label}-${index}`} className="bg-white rounded-2xl p-8 text-center shadow-md border border-gray-200 hover:border-yellow-400/60 hover:shadow-2xl transition-[border-color,box-shadow]">
+                <motion.div
+                  className="relative mx-auto mb-5 w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-300 to-amber-500 text-black flex items-center justify-center shadow-lg shadow-yellow-400/30 group-hover:rotate-[360deg] transition-transform duration-700"
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, delay: index * 0.4 }}
+                >
+                  <stat.icon className="h-8 w-8" />
+                </motion.div>
+                <div className="relative text-4xl font-extrabold text-prachetas-black mb-2 tabular-nums">
+                  <CountUp to={stat.value} format={stat.format} />
+                </div>
+                <div className="relative text-xl font-semibold text-amber-500 mb-3">{stat.label}</div>
+                <p className="relative text-prachetas-medium-gray">{stat.description}</p>
+              </SpotlightCard>
             ))}
-          </div>
+          </Stagger>
         </div>
       </section>
 
       {/* Success Stories */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-prachetas-black">Success Stories</h2>
-            <p className="text-prachetas-medium-gray text-lg">
-              Real stories of transformation and hope from the communities we serve
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
+      <section className="relative py-20 bg-gray-950 overflow-hidden">
+        <Sparkles count={18} />
+        <div className="relative container mx-auto px-4">
+          <SectionTitle dark eyebrow="🌟 Transformation" title="Success" highlight="Stories" subtitle="Real stories of transformation and hope from the communities we serve" />
+          <Stagger className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto" gap={0.15}>
             {successStories.map((story, index) => (
-              <div key={`${story.name}-${index}`} className="bg-gray-50 rounded-xl overflow-hidden transform transition-all duration-300 hover:scale-[1.02] shadow-md">
-                <img 
-                  src={story.image} 
-                  alt={story.name} 
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-prachetas-black mb-2">{story.name}</h3>
-                  <p className="text-prachetas-yellow text-sm mb-4 font-medium">{story.location}</p>
-                  <p className="text-prachetas-medium-gray mb-4">{story.description}</p>
-                  <div className="bg-gray-100 p-3 rounded-lg">
-                    <p className="text-prachetas-black font-semibold">{story.achievement}</p>
+              <StaggerItem key={`${story.name}-${index}`}>
+                <Tilt max={7} className="group relative h-full bg-white/5 border border-white/10 hover:border-yellow-400/50 rounded-2xl overflow-hidden shadow-xl transition-colors">
+                  <div className="relative overflow-hidden">
+                    <img src={story.image} alt={story.name} className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <Shine />
                   </div>
-                </div>
-              </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-white mb-2">{story.name}</h3>
+                    <p className="text-prachetas-yellow text-sm mb-4 font-medium">{story.location}</p>
+                    <p className="text-gray-400 mb-5">{story.description}</p>
+                    <div className="relative overflow-hidden bg-prachetas-yellow/10 border border-prachetas-yellow/30 p-3 rounded-lg">
+                      <Shimmer />
+                      <p className="relative text-prachetas-yellow font-semibold">{story.achievement}</p>
+                    </div>
+                  </div>
+                </Tilt>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </div>
       </section>
 
       {/* Annual Reports */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6 text-prachetas-black">Transparency</h2>
-            <p className="text-xl text-prachetas-medium-gray mb-8">
-              We maintain complete transparency in our operations and fund utilization.
-              View our annual reports to learn more about our impact.
-            </p>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-                <h3 className="text-prachetas-yellow font-bold mb-2 text-lg">2024-25</h3>
-                <p className="text-prachetas-medium-gray mb-4">Annual Impact Report</p>
-                <Button variant="outline" className="w-full border-prachetas-yellow text-prachetas-yellow hover:bg-prachetas-yellow hover:text-prachetas-black">
+          <SectionTitle
+            eyebrow="📄 Open Books"
+            title="Transparency"
+            subtitle="We maintain complete transparency in our operations and fund utilization. View our annual reports to learn more about our impact."
+          />
+          <Stagger className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto" gap={0.12}>
+            {["2024-25", "2023-24", "2022-23"].map((year) => (
+              <SpotlightCard key={year} className="bg-white p-7 rounded-2xl shadow-md border border-gray-200 hover:border-yellow-400/60 hover:shadow-2xl transition-[border-color,box-shadow] text-center">
+                <h3 className="relative text-amber-500 font-extrabold mb-2 text-2xl">{year}</h3>
+                <p className="relative text-prachetas-medium-gray mb-5">Annual Impact Report</p>
+                <Button variant="outline" className="relative w-full border-prachetas-yellow text-amber-600 hover:bg-prachetas-yellow hover:text-prachetas-black">
                   Download PDF
                 </Button>
-              </div>
-              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-                <h3 className="text-prachetas-yellow font-bold mb-2 text-lg">2023-24</h3>
-                <p className="text-prachetas-medium-gray mb-4">Annual Impact Report</p>
-                <Button variant="outline" className="w-full border-prachetas-yellow text-prachetas-yellow hover:bg-prachetas-yellow hover:text-prachetas-black">
-                  Download PDF
-                </Button>
-              </div>
-              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-                <h3 className="text-prachetas-yellow font-bold mb-2 text-lg">2022-23</h3>
-                <p className="text-prachetas-medium-gray mb-4">Annual Impact Report</p>
-                <Button variant="outline" className="w-full border-prachetas-yellow text-prachetas-yellow hover:bg-prachetas-yellow hover:text-prachetas-black">
-                  Download PDF
-                </Button>
-              </div>
-            </div>
-          </div>
+              </SpotlightCard>
+            ))}
+          </Stagger>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-prachetas-black text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6 text-prachetas-yellow">Help Us Create More Impact</h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Your support enables us to reach more communities and create lasting change.
-            Join us in our mission.
-          </p>
-          <div className="flex justify-center gap-4">
-            <Button asChild size="lg" className="bg-prachetas-yellow text-prachetas-black hover:bg-prachetas-bright-yellow">
-              <Link to="/donate">Make a Donation</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-prachetas-yellow text-prachetas-yellow hover:bg-prachetas-yellow hover:text-prachetas-black">
-              <Link to="/volunteer">Volunteer With Us</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <CTASection
+        title="Help Us Create More"
+        highlight="Impact"
+        icon={<Heart className="h-9 w-9" fill="currentColor" />}
+        text={<p>Your support enables us to reach more communities and create lasting change. Join us in our mission.</p>}
+        primary={{ to: "/donate", label: "Make a Donation" }}
+        secondary={{ to: "/volunteer", label: "Volunteer With Us" }}
+      />
 
       <Footer />
     </div>

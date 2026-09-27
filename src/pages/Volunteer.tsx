@@ -5,8 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Link } from "react-router-dom";
+import { Shine } from "@/components/motion";
 import Header from "../components/Header";
+import { GlowBorder, PageHero } from "@/components/PageFx";
 import Footer from "../components/Footer";
 
 const VolunteerPage = () => {
@@ -30,26 +31,24 @@ const VolunteerPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-clip">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="py-16 bg-prachetas-black text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-prachetas-yellow">Volunteer With Us</h1>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              Join our mission to create positive change in the community. Fill out the form below to express your interest in volunteering with us.
-            </p>
-          </div>
-        </div>
-      </section>
+
+      <PageHero
+        eyebrow="🙌 Lend A Hand"
+        title="Volunteer"
+        highlight="With Us"
+        image="/gallery-new-3.jpg"
+        wave="text-gray-100"
+        subtitle={<p>Join our mission to create positive change in the community. Fill out the form below to express your interest in volunteering with us.</p>}
+      />
 
       {/* Volunteer Form */}
-      <section id="volunteer-form" className="py-16 bg-gray-100">
+      <section id="volunteer-form" className="py-20 bg-gray-100">
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto">
-              <Card>
+              <GlowBorder innerClassName="bg-white">
+              <Card className="border-0 shadow-none">
                 <CardHeader>
                   <CardTitle className="text-2xl text-prachetas-black">Volunteer Registration</CardTitle>
                   <CardDescription>
@@ -127,13 +126,15 @@ const VolunteerPage = () => {
 
                     <Button 
                       type="submit" 
-                      className="w-full bg-prachetas-yellow text-prachetas-black hover:bg-prachetas-bright-yellow text-lg py-6"
+                      className="group relative overflow-hidden w-full bg-prachetas-yellow text-prachetas-black hover:bg-prachetas-bright-yellow text-lg py-6 shadow-lg shadow-yellow-400/30 hover:shadow-yellow-400/60 transition-shadow"
                     >
-                      Register as Volunteer
+                      <Shine />
+                      <span className="relative">Register as Volunteer</span>
                     </Button>
                   </form>
                 </CardContent>
               </Card>
+              </GlowBorder>
             </div>
           </div>
         </section>

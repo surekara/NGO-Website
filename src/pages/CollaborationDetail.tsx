@@ -10,7 +10,7 @@ import Footer from "../components/Footer";
 import { getCollaboration, type CollaborationMedia } from "@/data/collaborations";
 import {
   FallingLeaves, Marquee, RevealImage, ScrollCue, Shine, SplitWords, Tilt, ease, fadeUp, rise, stagger,
-} from "@/components/collaborations/motion";
+} from "@/components/motion";
 
 const serif = { fontFamily: "'Cormorant Garamond', serif" };
 
@@ -163,7 +163,7 @@ const CollaborationDetail = () => {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen bg-[#f7f4ec] dark:bg-neutral-950 overflow-x-hidden">
+      <div className="min-h-screen bg-[#f7f4ec] dark:bg-neutral-950 overflow-x-clip">
         <Header />
 
         {/* Hero */}

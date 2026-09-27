@@ -4,6 +4,9 @@ import { Calendar, MapPin, Users, BookOpen, Heart, Utensils, Target, Building, H
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { motion } from "framer-motion";
+import { Shine, SpotlightCard, Stagger } from "@/components/motion";
+import { CTASection, PageHero, SectionTitle } from "@/components/PageFx";
 
 const PartnerPage = () => {
   const upcomingEvents = [
@@ -79,32 +82,30 @@ const PartnerPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-clip">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="py-16 bg-prachetas-black text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-prachetas-yellow">Partner With Us</h1>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              Join hands with PRACHETAS to create lasting social impact. Explore our upcoming events and partnership opportunities.
-            </p>
-          </div>
-        </div>
-      </section>
+
+      <PageHero
+        eyebrow="🤝 Stronger Together"
+        title="Partner"
+        highlight="With Us"
+        image="/collaborations/ramnadi-mula-nature-walk/community-meal.jpg"
+        wave="text-white"
+        subtitle={<p>Join hands with PRACHETAS to create lasting social impact. Explore our upcoming events and partnership opportunities.</p>}
+      />
 
       {/* Partnership Types */}
-      <section className="py-16 bg-white">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8 text-center text-prachetas-black">Partnership Opportunities</h2>
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <SectionTitle title="Partnership" highlight="Opportunities" />
+            <Stagger className="grid md:grid-cols-3 gap-8 mb-8" gap={0.15}>
               {partnershipTypes.map((type) => (
-                <Card key={type.title} className="hover:shadow-lg transition-all duration-300 border-2 border-gray-200 hover:border-prachetas-yellow">
+                <SpotlightCard key={type.title} className="rounded-2xl">
+                <Card className="relative h-full bg-transparent hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 hover:border-prachetas-yellow">
                   <CardHeader>
                     <div className="flex items-center space-x-3 mb-4">
-                      <div className="bg-prachetas-yellow text-prachetas-black p-3 rounded-lg">
+                      <div className="bg-prachetas-yellow text-prachetas-black p-3 rounded-lg shadow-lg shadow-yellow-400/30 group-hover:rotate-[360deg] transition-transform duration-700">
                         <type.icon className="h-6 w-6" />
                       </div>
                       <CardTitle className="text-xl text-prachetas-black">{type.title}</CardTitle>
@@ -127,23 +128,22 @@ const PartnerPage = () => {
                     </div>
                   </CardContent>
                 </Card>
+                </SpotlightCard>
               ))}
-            </div>
+            </Stagger>
           </div>
         </div>
       </section>
 
       {/* Upcoming Events */}
-      <section className="py-16 bg-gray-100">
+      <section className="py-20 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8 text-center text-prachetas-black">Upcoming Events</h2>
-            <p className="text-center text-prachetas-medium-gray mb-12 text-lg">
-              Support our upcoming initiatives through partnership and collaboration
-            </p>
-            <div className="grid md:grid-cols-2 gap-8">
+            <SectionTitle eyebrow="📅 On The Calendar" title="Upcoming" highlight="Events" subtitle="Support our upcoming initiatives through partnership and collaboration" />
+            <Stagger className="grid md:grid-cols-2 gap-8" gap={0.12}>
               {upcomingEvents.map((event) => (
-                <Card key={event.id} className="hover:shadow-lg transition-all duration-300 border-2 border-gray-200 hover:border-prachetas-yellow">
+                <SpotlightCard key={event.id} className="rounded-2xl">
+                <Card className="relative h-full bg-white/90 hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 hover:border-prachetas-yellow">
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="flex items-center space-x-3">
@@ -188,40 +188,32 @@ const PartnerPage = () => {
                     </div>
 
                     <div className="flex justify-center">
-                      <Button 
-                        asChild
-                        className="bg-prachetas-yellow text-prachetas-black hover:bg-prachetas-bright-yellow px-8"
-                      >
-                        <Link to="/volunteer">Volunteer</Link>
-                      </Button>
+                      <motion.div whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.95 }}>
+                        <Button
+                          asChild
+                          className="relative overflow-hidden bg-prachetas-yellow text-prachetas-black hover:bg-prachetas-bright-yellow px-8"
+                        >
+                          <Link to="/volunteer"><Shine /><span className="relative">Volunteer</span></Link>
+                        </Button>
+                      </motion.div>
                     </div>
                   </CardContent>
                 </Card>
+                </SpotlightCard>
               ))}
-            </div>
+            </Stagger>
           </div>
         </div>
       </section>
 
-      {/* Contact CTA */}
-      <section className="py-16 bg-prachetas-black text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6 text-prachetas-yellow">Ready to Partner?</h2>
-            <p className="text-xl text-gray-300 mb-8">
-              Let's discuss how we can work together to create meaningful impact in communities.
-            </p>
-            <div className="flex justify-center gap-4">
-              <Button asChild size="lg" className="bg-prachetas-yellow text-prachetas-black hover:bg-prachetas-bright-yellow">
-                <Link to="/contact">Contact Us</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-prachetas-yellow text-prachetas-yellow hover:bg-prachetas-yellow hover:text-prachetas-black">
-                <Link to="/donate">Support Our Cause</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CTASection
+        title="Ready to"
+        highlight="Partner?"
+        icon={<Handshake className="h-9 w-9" />}
+        text={<p>Let's discuss how we can work together to create meaningful impact in communities.</p>}
+        primary={{ to: "/contact", label: "Contact Us" }}
+        secondary={{ to: "/donate", label: "Support Our Cause" }}
+      />
 
       <Footer />
     </div>

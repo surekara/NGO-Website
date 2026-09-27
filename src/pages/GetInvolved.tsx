@@ -1,8 +1,10 @@
-import { Heart, Users, HandHeart, Mail } from "lucide-react";
+import { Heart, Users, HandHeart, Mail, ArrowRight } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { SpotlightCard, Stagger } from "@/components/motion";
+import { CTASection, PageHero, SectionTitle } from "@/components/PageFx";
 
 const GetInvolvedPage = () => {
   const opportunities = [
@@ -41,73 +43,66 @@ const GetInvolvedPage = () => {
     }
   ];
 
+  const links = ["/volunteer", "/partner", "/donate"];
+
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 overflow-x-clip">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="relative py-20 bg-prachetas-black text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-prachetas-yellow">Get Involved</h1>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              Join our mission to create lasting change in communities. Whether through volunteering,
-              partnerships, or support, there are many ways to make a difference.
-            </p>
-          </div>
-        </div>
-      </section>
+
+      <PageHero
+        eyebrow="🤝 Be The Change"
+        title="Get"
+        highlight="Involved"
+        image="/gallery-new-5.jpg"
+        wave="text-white"
+        subtitle={<p>Join our mission to create lasting change in communities. Whether through volunteering, partnerships, or support, there are many ways to make a difference.</p>}
+      />
 
       {/* Opportunities */}
-      <section className="py-16 bg-white">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-prachetas-black">Ways to Get Involved</h2>
-            <p className="text-prachetas-medium-gray text-lg">
-              Choose how you'd like to contribute to our mission and make an impact
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <SectionTitle title="Ways to Get" highlight="Involved" subtitle="Choose how you'd like to contribute to our mission and make an impact" />
+          <Stagger className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto" gap={0.15}>
             {opportunities.map((opportunity, index) => (
-              <div key={opportunity.title} className="bg-prachetas-black rounded-xl p-8 shadow-lg border border-gray-800 hover:transform hover:scale-[1.02] transition-all duration-300">
-                <opportunity.icon className="h-12 w-12 text-prachetas-yellow mb-6 mx-auto" />
-                <h3 className="text-2xl font-bold text-prachetas-yellow mb-4 text-center">{opportunity.title}</h3>
-                <p className="text-gray-300 mb-6 leading-relaxed">{opportunity.description}</p>
-                <ul className="space-y-2">
-                  {opportunity.actions.map((action, idx) => (
-                    <li key={`${opportunity.title}-${idx}`} className="flex items-start text-gray-300">
-                      <span className="text-prachetas-yellow mr-2 mt-1">•</span>
-                      {action}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <SpotlightCard key={opportunity.title} className="bg-prachetas-black rounded-2xl p-8 shadow-xl border border-gray-800 hover:border-yellow-400/50 hover:shadow-[0_30px_70px_-20px_rgba(255,215,0,0.35)] transition-[border-color,box-shadow] duration-500">
+                <span className="absolute top-3 right-5 text-6xl font-black text-white/5 group-hover:text-yellow-400/15 transition-colors font-mono">0{index + 1}</span>
+                <Link to={links[index]} className="relative block">
+                  <motion.div
+                    className="mx-auto mb-6 w-20 h-20 rounded-full bg-prachetas-yellow/10 flex items-center justify-center group-hover:bg-prachetas-yellow transition-colors duration-500"
+                    animate={{ y: [0, -6, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, delay: index * 0.4 }}
+                  >
+                    <opportunity.icon className="h-10 w-10 text-prachetas-yellow group-hover:text-black group-hover:scale-110 transition-all duration-500" />
+                  </motion.div>
+                  <h3 className="text-2xl font-bold text-prachetas-yellow mb-4 text-center">{opportunity.title}</h3>
+                  <p className="text-gray-300 mb-6 leading-relaxed">{opportunity.description}</p>
+                  <ul className="space-y-2">
+                    {opportunity.actions.map((action, idx) => (
+                      <li key={`${opportunity.title}-${idx}`} className="flex items-start text-gray-300 group-hover:translate-x-1 transition-transform" style={{ transitionDelay: `${idx * 50}ms` }}>
+                        <span className="text-prachetas-yellow mr-2">✦</span>
+                        {action}
+                      </li>
+                    ))}
+                  </ul>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-prachetas-yellow group-hover:gap-3 transition-all">
+                    Learn more <ArrowRight size={16} />
+                  </span>
+                </Link>
+                <span className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-yellow-300 to-amber-500 group-hover:w-full transition-all duration-500" />
+              </SpotlightCard>
             ))}
-          </div>
+          </Stagger>
         </div>
       </section>
 
-      {/* Contact CTA */}
-      <section className="py-16 bg-prachetas-black text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6 text-prachetas-yellow">Ready to Make a Difference?</h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Contact us to learn more about how you can get involved and contribute
-            to creating positive change in our communities.
-          </p>
-          <div className="flex justify-center gap-4">
-            <Button asChild size="lg" className="bg-prachetas-yellow text-prachetas-black hover:bg-prachetas-bright-yellow border-none">
-              <Link to="/contact">Contact Us</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-prachetas-yellow text-prachetas-yellow hover:bg-prachetas-yellow hover:text-prachetas-black">
-              <a href="mailto:prachetasfoundation@gmail.com">
-                <Mail className="mr-2 h-5 w-5" />
-                Email Us
-              </a>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <CTASection
+        title="Ready to Make a"
+        highlight="Difference?"
+        icon={<Mail className="h-9 w-9" />}
+        text={<p>Contact us to learn more about how you can get involved and contribute to creating positive change in our communities.</p>}
+        primary={{ to: "/contact", label: "Contact Us" }}
+        secondary={{ to: "mailto:prachetasfoundation@gmail.com", label: "Email Us" }}
+      />
 
       <Footer />
     </div>

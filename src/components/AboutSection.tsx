@@ -1,14 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ChevronRight, Target } from "lucide-react";
-import { motion, useInView } from "framer-motion";
+import { motion, type Variants, useInView } from "framer-motion";
 import { useRef } from "react";
+import { DrawLine, Parallax, RevealImage, Shimmer, Shine, SplitWords, Tilt } from "@/components/motion";
 
 const AboutSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -19,7 +20,7 @@ const AboutSection = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
@@ -66,12 +67,15 @@ const AboutSection = () => {
         >
           {/* Badge + heading */}
           <div className="text-center mb-14">
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 bg-yellow-50 dark:bg-yellow-400/10 border border-yellow-200 dark:border-yellow-400/30 text-yellow-700 dark:text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-5 hover:bg-yellow-100 dark:hover:bg-yellow-400/20 transition-colors cursor-default">
+            <motion.div variants={itemVariants} className="relative overflow-hidden inline-flex items-center gap-2 bg-yellow-50 dark:bg-yellow-400/10 border border-yellow-200 dark:border-yellow-400/30 text-yellow-700 dark:text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-5 hover:bg-yellow-100 dark:hover:bg-yellow-400/20 transition-colors cursor-default">
+              <Shimmer color="via-yellow-400/30" />
               🏛️ Who We Are
             </motion.div>
-            <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-              About <span className="text-gradient-yellow">PRACHETAS</span>
-            </motion.h2>
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 text-gray-900 dark:text-white">
+              <SplitWords text="About" inView />{" "}
+              <SplitWords text="PRACHETAS" inView delay={0.15} wordClassName="text-gradient-yellow" />
+            </h2>
+            <DrawLine className="mx-auto mb-5 h-[3px] w-24 rounded-full bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
             <motion.p variants={itemVariants} className="text-gray-500 dark:text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
               Dedicated to creating positive change through education, healthcare, and community development initiatives
             </motion.p>
@@ -82,9 +86,17 @@ const AboutSection = () => {
             <div className="space-y-6">
               <motion.div
                 variants={itemVariants}
-                className="relative bg-gray-950 dark:bg-gray-900 p-8 rounded-2xl border-l-4 border-yellow-400 shadow-xl hover:shadow-2xl transition-shadow"
-                whileHover={{ y: -5 }}
+                className="group relative overflow-hidden bg-gray-950 dark:bg-gray-900 p-8 rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-yellow-400/10 transition-shadow"
+                whileHover={{ y: -6, scale: 1.01 }}
               >
+                <motion.span
+                  className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-yellow-300 via-yellow-400 to-amber-500 origin-top"
+                  initial={{ scaleY: 0 }}
+                  whileInView={{ scaleY: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, delay: 0.4 }}
+                />
+                <Shine />
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-9 h-9 rounded-xl bg-yellow-400/10 flex items-center justify-center">
                     <Target size={18} className="text-yellow-400" />
@@ -142,16 +154,23 @@ const AboutSection = () => {
                   delay: 1,
                 }}
               />
-              <img
-                src="/Copy of WhatsApp Image 2025-02-26 at 15.41.35 (1).jpeg"
-                alt="PRACHETAS Foundation community work"
-                loading="eager"
-                className="relative rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]"
-              />
+              <Parallax offset={30}>
+                <Tilt max={7} className="group relative rounded-2xl shadow-2xl overflow-hidden">
+                  <RevealImage
+                    src="/Copy of WhatsApp Image 2025-02-26 at 15.41.35 (1).jpeg"
+                    alt="PRACHETAS Foundation community work"
+                    className="aspect-[4/3]"
+                    imgClassName="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <Shine />
+                </Tilt>
+              </Parallax>
               {/* Floating badge on image */}
               <motion.div
                 className="absolute bottom-5 left-5 bg-black/80 backdrop-blur-sm border border-yellow-400/40 text-white text-xs font-semibold px-4 py-2 rounded-full"
                 whileHover={{ scale: 1.05 }}
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               >
                 🌟 Est. 2022 · Pune, Maharashtra
               </motion.div>

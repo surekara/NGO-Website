@@ -1,28 +1,13 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 
 const ProgressBar = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const updateScrollProgress = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrollTop / docHeight) * 100;
-      setScrollProgress(progress);
-    };
-
-    window.addEventListener("scroll", updateScrollProgress);
-    return () => window.removeEventListener("scroll", updateScrollProgress);
-  }, []);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 25, restDelta: 0.001 });
 
   return (
     <motion.div
-      className="fixed top-0 left-0 h-1 bg-gradient-to-r from-prachetas-yellow via-yellow-300 to-prachetas-yellow z-[60]"
-      style={{ width: `${scrollProgress}%` }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      className="fixed top-0 left-0 right-0 h-1 origin-left bg-gradient-to-r from-prachetas-yellow via-yellow-200 to-prachetas-golden z-[60] shadow-[0_0_12px_rgba(255,215,0,0.7)]"
+      style={{ scaleX }}
     />
   );
 };

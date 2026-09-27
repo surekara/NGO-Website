@@ -3,17 +3,42 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Instagram, Linkedin, Youtube, MapPin, Phone, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import { Sparkles } from "@/components/motion";
 
 const Footer = () => {
   return (
     <motion.footer
-      className="bg-black text-white pt-16 pb-8"
+      className="relative overflow-hidden bg-black text-white pt-16 pb-8"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
     >
-      <div className="container mx-auto px-4">
+      <motion.div
+        className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-prachetas-yellow to-transparent"
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+      />
+      <motion.div
+        className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-64 rounded-full bg-prachetas-yellow/10 blur-3xl pointer-events-none"
+        animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.1, 1] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <Sparkles count={14} />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none select-none absolute -bottom-6 md:-bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap font-bold italic text-[18vw] leading-none text-transparent bg-clip-text bg-gradient-to-b from-white/[0.07] to-transparent"
+        style={{ fontFamily: "'Cormorant Garamond', serif" }}
+        initial={{ y: 80, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+      >
+        PRACHETAS
+      </motion.div>
+      <div className="relative container mx-auto px-4">
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           {/* Column 1 - About */}
           <motion.div
@@ -45,9 +70,9 @@ const Footer = () => {
                 <motion.a
                   key={social.label}
                   href={social.href}
-                  className="text-gray-400 hover:text-prachetas-yellow transition-colors"
+                  className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-gray-400 hover:text-black hover:bg-prachetas-yellow hover:border-prachetas-yellow hover:shadow-[0_0_20px_rgba(255,215,0,0.6)] transition-colors"
                   aria-label={social.label}
-                  whileHover={{ scale: 1.2, rotate: 5 }}
+                  whileHover={{ scale: 1.15, rotate: 8, y: -3 }}
                   whileTap={{ scale: 0.9 }}
                 >
                   <social.icon size={20} />
@@ -77,8 +102,9 @@ const Footer = () => {
                   <motion.div whileHover={{ x: 5 }}>
                     <Link
                       to={link.to}
-                      className={`${link.special ? "text-yellow-400/80" : "text-gray-400"} hover:text-prachetas-yellow transition-colors`}
+                      className={`group/link relative inline-flex items-center gap-2 ${link.special ? "text-yellow-400/80" : "text-gray-400"} hover:text-prachetas-yellow transition-colors`}
                     >
+                      <span className="h-px w-0 bg-prachetas-yellow group-hover/link:w-4 transition-all duration-300" />
                       {link.label}
                     </Link>
                   </motion.div>
@@ -103,7 +129,8 @@ const Footer = () => {
               ].map((link) => (
                 <li key={link.label}>
                   <motion.div whileHover={{ x: 5 }}>
-                    <Link to={link.to} className="text-gray-400 hover:text-prachetas-yellow transition-colors">
+                    <Link to={link.to} className="group/link inline-flex items-center gap-2 text-gray-400 hover:text-prachetas-yellow transition-colors">
+                      <span className="h-px w-0 bg-prachetas-yellow group-hover/link:w-4 transition-all duration-300" />
                       {link.label}
                     </Link>
                   </motion.div>

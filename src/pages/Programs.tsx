@@ -1,10 +1,10 @@
 import { BookOpen, Users, Heart, Brain, GraduationCap, Sprout } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { CountUp, RevealImage, Shine, SpotlightCard, Stagger, StaggerItem, Tilt } from "@/components/motion";
+import { CTASection, PageHero, SectionTitle } from "@/components/PageFx";
 
 const ProgramsPage = () => {
   const programs = [
@@ -62,123 +62,103 @@ const ProgramsPage = () => {
     }
   ];
 
+  const stats = [
+    { value: 5000, label: "Students Educated" },
+    { value: 100, label: "Villages Reached" },
+    { value: 2000, label: "Health Checkups" },
+    { value: 1000, label: "Youth Skilled" },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-clip">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="relative py-20 bg-white text-prachetas-black">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Programs</h1>
-            <p className="text-xl text-prachetas-medium-gray mb-8 leading-relaxed">
-              Through our diverse range of programs, we aim to create lasting positive change
-              in communities and empower individuals to build better futures.
-            </p>
-          </div>
-        </div>
-      </section>
+
+      <PageHero
+        eyebrow="🌱 What We Do"
+        title="Our"
+        highlight="Programs"
+        image="/Copy of IMG-20250610-WA0013.jpg"
+        subtitle={<p>Through our diverse range of programs, we aim to create lasting positive change in communities and empower individuals to build better futures.</p>}
+      />
 
       {/* Programs Grid */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8">
-            {programs.map((program, index) => (
-              <Card 
-                key={program.title} 
-                className="relative overflow-hidden bg-white hover:shadow-xl transition-all duration-300 hover:transform hover:scale-[1.02] h-96"
-              >
-                {/* Background Image */}
-                <div className="absolute inset-0">
-                  <img
-                    src={program.backgroundImage}
-                    alt={`${program.title} background`}
-                    className="w-full h-full object-cover"
-                  />
-                  {/* Dark overlay for text readability */}
-                  <div className="absolute inset-0 bg-black/60"></div>
-                </div>
-                
-                {/* Content */}
-                <div className="relative z-10 h-full flex flex-col">
-                  <CardHeader className="flex-shrink-0">
-                    <div className="bg-prachetas-yellow text-prachetas-black w-14 h-14 flex items-center justify-center rounded-full mb-4 shadow-lg">
-                      <program.icon className="h-7 w-7" />
+          <Stagger className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto" gap={0.15}>
+            {programs.map((program) => (
+              <StaggerItem key={program.title}>
+                <Tilt max={5} className="group relative overflow-hidden rounded-3xl h-[26rem] shadow-xl hover:shadow-[0_30px_80px_-20px_rgba(255,215,0,0.4)] transition-shadow duration-500">
+                  {/* Background Image */}
+                  <div className="absolute inset-0">
+                    <RevealImage
+                      src={program.backgroundImage}
+                      alt={`${program.title} background`}
+                      className="w-full h-full"
+                      imgClassName="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 group-hover:from-black/95 transition-colors duration-500" />
+                  </div>
+                  <Shine />
+
+                  {/* Content */}
+                  <div className="relative z-10 h-full flex flex-col p-8">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="bg-prachetas-yellow text-prachetas-black w-14 h-14 flex items-center justify-center rounded-2xl shadow-lg shadow-yellow-400/30 group-hover:rotate-[360deg] group-hover:scale-110 transition-transform duration-700">
+                        <program.icon className="h-7 w-7" />
+                      </div>
+                      <Badge className="bg-prachetas-yellow/90 text-prachetas-black hover:bg-yellow-300 w-fit">{program.category}</Badge>
                     </div>
-                    <Badge className="mb-2 bg-prachetas-yellow text-prachetas-black hover:bg-yellow-300 w-fit">
-                      {program.category}
-                    </Badge>
-                    <CardTitle className="text-white text-2xl">{program.title}</CardTitle>
-                    <CardDescription className="text-gray-200 text-base">
-                      {program.description}
-                    </CardDescription>
-                  </CardHeader>
-                  
-                  <CardContent className="flex-1 pt-0">
-                    <ul className="space-y-2">
+                    <h3 className="text-white text-3xl font-bold">{program.title}</h3>
+                    <p className="mt-2 text-gray-200 text-base">{program.description}</p>
+                    <ul className="mt-auto space-y-2">
                       {program.benefits.map((benefit, idx) => (
-                        <li key={`${program.title}-${idx}`} className="flex items-start text-gray-200 text-sm">
-                          <span className="text-prachetas-yellow mr-2 mt-1">•</span>
+                        <motion.li
+                          key={`${program.title}-${idx}`}
+                          className="flex items-start text-gray-200 text-sm group-hover:translate-x-1 transition-transform"
+                          style={{ transitionDelay: `${idx * 60}ms` }}
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.5 + idx * 0.1 }}
+                        >
+                          <span className="text-prachetas-yellow mr-2">✦</span>
                           {benefit}
-                        </li>
+                        </motion.li>
                       ))}
                     </ul>
-                  </CardContent>
-                </div>
-              </Card>
+                  </div>
+                </Tilt>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </div>
       </section>
 
       {/* Impact Stats */}
-      <section className="py-16 bg-gray-100">
+      <section className="relative py-20 bg-white overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-prachetas-black">Our Impact</h2>
-            <p className="text-prachetas-medium-gray text-lg">
-              See the difference we're making in communities across the region
-            </p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center bg-white p-6 rounded-lg shadow-md">
-              <div className="text-4xl font-bold text-prachetas-yellow mb-2">5000+</div>
-              <div className="text-prachetas-black font-medium">Students Educated</div>
-            </div>
-            <div className="text-center bg-white p-6 rounded-lg shadow-md">
-              <div className="text-4xl font-bold text-prachetas-yellow mb-2">100+</div>
-              <div className="text-prachetas-black font-medium">Villages Reached</div>
-            </div>
-            <div className="text-center bg-white p-6 rounded-lg shadow-md">
-              <div className="text-4xl font-bold text-prachetas-yellow mb-2">2000+</div>
-              <div className="text-prachetas-black font-medium">Health Checkups</div>
-            </div>
-            <div className="text-center bg-white p-6 rounded-lg shadow-md">
-              <div className="text-4xl font-bold text-prachetas-yellow mb-2">1000+</div>
-              <div className="text-prachetas-black font-medium">Youth Skilled</div>
-            </div>
-          </div>
+          <SectionTitle eyebrow="✨ Real Change" title="Our" highlight="Impact" subtitle="See the difference we're making in communities across the region" />
+          <Stagger className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto" gap={0.12}>
+            {stats.map((s) => (
+              <SpotlightCard key={s.label} className="text-center bg-gray-50 p-8 rounded-2xl border border-gray-200 hover:border-yellow-400/60 hover:shadow-2xl transition-[border-color,box-shadow]">
+                <div className="relative text-4xl md:text-5xl font-extrabold text-gradient-yellow mb-2 tabular-nums">
+                  <CountUp to={s.value} />+
+                </div>
+                <div className="relative text-prachetas-black font-medium">{s.label}</div>
+              </SpotlightCard>
+            ))}
+          </Stagger>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-prachetas-black text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6 text-prachetas-yellow">Support Our Programs</h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Your contribution helps us expand our reach and create more impact.
-            Join us in making a difference.
-          </p>
-          <div className="flex justify-center gap-4">
-            <Button asChild size="lg" className="bg-prachetas-yellow text-prachetas-black hover:bg-prachetas-bright-yellow">
-              <Link to="/donate">Make a Donation</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-prachetas-yellow text-prachetas-yellow hover:bg-prachetas-yellow hover:text-prachetas-black">
-              <Link to="/volunteer">Volunteer With Us</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <CTASection
+        title="Support Our"
+        highlight="Programs"
+        icon={<Heart className="h-9 w-9" fill="currentColor" />}
+        text={<p>Your contribution helps us expand our reach and create more impact. Join us in making a difference.</p>}
+        primary={{ to: "/donate", label: "Make a Donation" }}
+        secondary={{ to: "/volunteer", label: "Volunteer With Us" }}
+      />
 
       <Footer />
     </div>

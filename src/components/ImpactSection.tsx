@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { UtensilsCrossed, BookOpen, HeartPulse, Leaf } from "lucide-react";
 import { motion, useInView } from "framer-motion";
+import { DrawLine, Shimmer, Shine, SplitWords, Tilt } from "@/components/motion";
 
 const useCounter = (target: number, duration = 2000, start = false) => {
   const [count, setCount] = useState(0);
@@ -73,31 +74,34 @@ const PillarCard = ({ pillar, started, idx }: { pillar: typeof pillars[0]; start
   const count = useCounter(pillar.stat, 2000, started);
   const fmt = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(0)}K${pillar.suffix}` : `${n}${pillar.suffix}`;
   return (
-    <motion.div
-      className={`bg-gradient-to-br ${pillar.bg} border-2 ${pillar.border} rounded-2xl p-6 shadow-sm hover:shadow-2xl transition-all duration-300 group backdrop-blur-sm`}
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: idx * 0.15, duration: 0.6 }}
-      whileHover={{ y: -10, scale: 1.02 }}
-      style={{ backdropFilter: "blur(10px)" }}
+    <Tilt
+      max={10}
+      className={`relative overflow-hidden bg-gradient-to-br ${pillar.bg} border-2 ${pillar.border} rounded-2xl p-6 shadow-sm hover:shadow-2xl transition-[box-shadow,border-color] duration-300 group`}
+      initial={{ opacity: 0, y: 70, rotateZ: idx % 2 ? 3 : -3 }}
+      whileInView={{ opacity: 1, y: 0, rotateZ: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ delay: idx * 0.15, type: "spring", stiffness: 90, damping: 14 }}
     >
+      <Shine />
+      <div className={`absolute -right-8 -top-8 w-28 h-28 rounded-full bg-gradient-to-br ${pillar.gradient} opacity-10 group-hover:opacity-25 group-hover:scale-150 transition-all duration-700`} />
       <motion.div
-        className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${pillar.iconBg}`}
-        whileHover={{ rotate: 360, scale: 1.1 }}
-        transition={{ duration: 0.6 }}
+        className={`relative w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${pillar.iconBg}`}
+        animate={{ rotate: [0, -8, 8, 0] }}
+        transition={{ duration: 4, repeat: Infinity, delay: idx * 0.6 }}
+        whileHover={{ rotate: 360, scale: 1.2, transition: { duration: 0.6 } }}
       >
         <pillar.icon size={22} />
       </motion.div>
-      <h3 className="text-xl font-bold text-gray-900 mb-2">{pillar.title}</h3>
-      <p className="text-gray-500 text-sm mb-5 leading-relaxed">{pillar.desc}</p>
+      <h3 className="relative text-xl font-bold text-gray-900 mb-2">{pillar.title}</h3>
+      <p className="relative text-gray-500 text-sm mb-5 leading-relaxed">{pillar.desc}</p>
       <motion.div
-        className={`bg-gradient-to-r ${pillar.gradient} rounded-xl px-4 py-3 text-white`}
+        className={`relative bg-gradient-to-r ${pillar.gradient} rounded-xl px-4 py-3 text-white`}
         whileHover={{ scale: 1.05 }}
       >
         <div className="text-2xl font-extrabold tabular-nums">{fmt(count)}</div>
         <div className="text-xs uppercase tracking-wider opacity-80">{pillar.statLabel}</div>
       </motion.div>
-    </motion.div>
+    </Tilt>
   );
 };
 
@@ -122,12 +126,17 @@ const ImpactSection = () => {
           transition={{ duration: 0.8 }}
         >
           <motion.div
-            className="inline-flex items-center gap-2 bg-yellow-50 dark:bg-yellow-400/10 border border-yellow-200 dark:border-yellow-400/30 text-yellow-700 dark:text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-4"
+            className="relative overflow-hidden inline-flex items-center gap-2 bg-yellow-50 dark:bg-yellow-400/10 border border-yellow-200 dark:border-yellow-400/30 text-yellow-700 dark:text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-4"
             whileHover={{ scale: 1.05 }}
           >
+            <Shimmer color="via-yellow-400/30" />
             ✨ Real-World Change
           </motion.div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Our Impact</h2>
+          <h2 className="text-4xl md:text-6xl font-bold mb-4 text-gray-900 dark:text-white">
+            <SplitWords text="Our" inView />{" "}
+            <SplitWords text="Impact" inView delay={0.12} wordClassName="text-gradient-yellow" />
+          </h2>
+          <DrawLine className="mx-auto mb-5 h-[3px] w-24 rounded-full bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
           <p className="text-gray-500 dark:text-gray-400 text-lg">
             Through compassion and collective action, we've created meaningful change across communities
           </p>

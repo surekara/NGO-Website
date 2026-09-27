@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './GallerySection.css';
+import { motion } from 'framer-motion';
+import { DrawLine, Shimmer, SplitWords } from '@/components/motion';
 
 interface GalleryImage { src: string; cropTop?: boolean }
 
@@ -75,10 +77,15 @@ const GallerySection: React.FC = () => {
     <section className="py-16 overflow-hidden bg-gray-950">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/30 text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
+          <div className="relative overflow-hidden inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/30 text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
+            <Shimmer />
             📸 Moments of Impact
           </div>
-          <h2 className="text-4xl font-bold mb-4 text-white">Our Gallery</h2>
+          <h2 className="text-4xl md:text-6xl font-bold mb-4 text-white">
+            <SplitWords text="Our" inView />{" "}
+            <SplitWords text="Gallery" inView delay={0.12} wordClassName="text-yellow-400 italic pr-1" />
+          </h2>
+          <DrawLine className="mx-auto mb-5 h-[3px] w-24 rounded-full bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
           <p className="text-gray-400 text-lg">
             A glimpse into our community initiatives and the lives we've touched. Click any image to view it full size.
           </p>
@@ -98,7 +105,13 @@ const GallerySection: React.FC = () => {
           animClass: string,
           rowKey: string,
         ) => (
-          <div className="scrolling-row-container">
+          <motion.div
+            className="scrolling-row-container"
+            initial={{ opacity: 0, x: rowKey === 'row2' ? 200 : -200 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: rowKey === 'row1' ? 0 : rowKey === 'row2' ? 0.15 : 0.3 }}
+          >
             <div className={`scrolling-row ${animClass}`}>
               {[...rowImages, ...rowImages].map((img, index) => {
                 const globalIdx = origIdx(rowImages, index);
@@ -111,7 +124,7 @@ const GallerySection: React.FC = () => {
                 );
               })}
             </div>
-          </div>
+          </motion.div>
         );
 
         return (

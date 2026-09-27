@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { BookOpen, HeartPulse, UtensilsCrossed, ArrowRight, ExternalLink } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { DrawLine, Magnetic, RevealImage, Shimmer, Shine, SplitWords, Tilt } from "@/components/motion";
 
 const programs = [
   {
@@ -57,12 +58,15 @@ const ProgramsSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <div className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/30 text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-5">
+          <div className="relative overflow-hidden inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/30 text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-5">
+            <Shimmer />
             🌱 Our Programs
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Changing Lives Through <span className="text-yellow-400">Action</span>
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
+            <SplitWords text="Changing Lives Through" inView />{" "}
+            <SplitWords text="Action" inView delay={0.3} wordClassName="text-yellow-400 italic pr-1" />
           </h2>
+          <DrawLine className="mx-auto mb-5 h-[3px] w-24 rounded-full bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
           <p className="text-gray-400 text-lg">
             Three pillars of impact — education, nourishment, and wellness — woven into every community we serve.
           </p>
@@ -73,14 +77,17 @@ const ProgramsSection = () => {
 
           {/* Large card — left, 7 cols */}
           {(() => { const HeroIcon = programs[0].icon; return (
-          <motion.div
-            className="md:col-span-7 relative rounded-3xl overflow-hidden group cursor-pointer h-[420px]"
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1 }}
+          <Tilt
+            max={4}
+            className="md:col-span-7 relative rounded-3xl overflow-hidden group cursor-pointer h-[420px] hover:shadow-[0_30px_80px_-20px_rgba(255,215,0,0.35)] transition-shadow duration-500"
+            initial={{ opacity: 0, x: -80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
             <Link to={programs[0].link} className="block w-full h-full">
-              <img src={programs[0].image} alt={programs[0].title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+              <RevealImage src={programs[0].image} alt={programs[0].title} className="w-full h-full" imgClassName="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
+              <Shine />
               <div className={`absolute inset-0 bg-gradient-to-t ${programs[0].accent} opacity-80`} />
               <div className="absolute inset-0 p-8 flex flex-col justify-end">
                 <div className="flex items-center gap-2 mb-3">
@@ -102,7 +109,7 @@ const ProgramsSection = () => {
                 </div>
               </div>
             </Link>
-          </motion.div>
+          </Tilt>
           ); })()}
 
           {/* Right column — 5 cols, two stacked cards */}
@@ -110,15 +117,18 @@ const ProgramsSection = () => {
             {programs.slice(1).map((p, i) => {
               const CardIcon = p.icon;
               return (
-              <motion.div
+              <Tilt
                 key={p.id}
-                className="relative rounded-3xl overflow-hidden group cursor-pointer flex-1 h-[200px]"
-                initial={{ opacity: 0, x: 40 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.2 + i * 0.15 }}
+                max={6}
+                className="relative rounded-3xl overflow-hidden group cursor-pointer flex-1 h-[200px] hover:shadow-[0_30px_80px_-20px_rgba(255,215,0,0.35)] transition-shadow duration-500"
+                initial={{ opacity: 0, x: 80 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 1, delay: 0.25 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Link to={p.link} className="block w-full h-full">
-                  <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <RevealImage src={p.image} alt={p.title} delay={0.25 + i * 0.15} className="w-full h-full" imgClassName="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
+                  <Shine />
                   <div className={`absolute inset-0 bg-gradient-to-t ${p.accent} opacity-100`} />
                   <div className="absolute inset-0 p-6 flex flex-col justify-end">
                     <div className="flex items-center gap-2 mb-1.5">
@@ -136,7 +146,7 @@ const ProgramsSection = () => {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </Tilt>
               );
             })}
           </div>
@@ -149,12 +159,14 @@ const ProgramsSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.7, duration: 0.6 }}
         >
-          <Link
-            to="/programs"
-            className="inline-flex items-center gap-2 border border-yellow-400/40 hover:border-yellow-400 text-yellow-400 hover:bg-yellow-400/10 font-semibold px-8 py-3 rounded-xl transition-all text-sm"
-          >
-            View All Programs <ArrowRight size={16} />
-          </Link>
+          <Magnetic>
+            <Link
+              to="/programs"
+              className="group inline-flex items-center gap-2 border border-yellow-400/40 hover:border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-semibold px-8 py-3 rounded-xl transition-all text-sm"
+            >
+              View All Programs <ArrowRight size={16} className="transition-transform group-hover:translate-x-1.5" />
+            </Link>
+          </Magnetic>
         </motion.div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { DrawLine, Shimmer, SplitWords, Sparkles } from "@/components/motion";
 
 const testimonials = [
   {
@@ -69,25 +70,43 @@ const TestimonialsSection = () => {
 
   return (
     <section className="py-20 bg-gray-950 relative overflow-hidden" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-52 bg-yellow-400/5 blur-3xl rounded-full pointer-events-none" />
+      <motion.div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-52 bg-yellow-400/10 blur-3xl rounded-full pointer-events-none"
+        animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <Sparkles count={16} />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-14">
-          <div className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/30 text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-5">
+          <div className="relative overflow-hidden inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/30 text-yellow-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-5">
+            <Shimmer />
             💬 Stories That Matter
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-            Making A <span className="text-yellow-400">Difference</span>
+          <h2 className="text-4xl md:text-6xl font-bold mb-4 text-white">
+            <SplitWords text="Making A" inView />{" "}
+            <SplitWords text="Difference" inView delay={0.2} wordClassName="text-yellow-400 italic pr-1" />
           </h2>
+          <DrawLine className="mx-auto mb-5 h-[3px] w-24 rounded-full bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
           <p className="text-gray-400 text-lg">Hear from communities we serve and those who help us fulfill our mission</p>
         </div>
 
         {/* Main testimonial */}
         <div className="max-w-3xl mx-auto">
-          <div className="relative bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 min-h-[280px] overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, y: 60, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="relative bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 min-h-[280px] overflow-hidden hover:border-yellow-400/30 transition-colors"
+          >
             {/* Decorative quote */}
-            <div className="absolute top-6 right-8 text-8xl text-yellow-400/10 font-serif leading-none select-none">"</div>
+            <motion.div
+              className="absolute top-2 right-8 text-[10rem] text-yellow-400/10 font-serif leading-none select-none"
+              animate={{ y: [0, -10, 0], rotate: [0, 4, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            >"</motion.div>
 
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
@@ -103,16 +122,30 @@ const TestimonialsSection = () => {
                 {/* Stars */}
                 <div className="flex gap-1 mb-5">
                   {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} size={16} className="fill-yellow-400 text-yellow-400" />
+                    <motion.span
+                      key={i}
+                      initial={{ scale: 0, rotate: -90 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ delay: 0.1 + i * 0.08, type: "spring", stiffness: 300, damping: 12 }}
+                    >
+                      <Star size={16} className="fill-yellow-400 text-yellow-400" />
+                    </motion.span>
                   ))}
                 </div>
 
                 <blockquote className="text-white text-lg md:text-xl leading-relaxed mb-8 font-medium">
-                  "{t.quote}"
+                  <SplitWords text={`"${t.quote}"`} gap={0.018} delay={0.2} />
                 </blockquote>
 
                 <div className="flex items-center gap-4">
-                  <img src={t.avatar} alt={t.name} className="w-14 h-14 rounded-full object-cover ring-2 ring-yellow-400/50 shadow-lg" />
+                  <div className="relative w-16 h-16 shrink-0 flex items-center justify-center">
+                    <motion.span
+                      className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,#FFD700,transparent_40%,#FFB300,transparent_80%,#FFD700)]"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    />
+                    <img src={t.avatar} alt={t.name} className="relative w-14 h-14 rounded-full object-cover ring-2 ring-gray-950 shadow-lg" />
+                  </div>
                   <div>
                     <div className="font-bold text-white">{t.name}</div>
                     <div className="text-yellow-400 text-sm font-medium">{t.title}</div>
@@ -121,16 +154,26 @@ const TestimonialsSection = () => {
                 </div>
               </motion.div>
             </AnimatePresence>
-          </div>
+          </motion.div>
 
           {/* Controls */}
           <div className="flex items-center justify-between mt-6">
             {/* Dot indicators */}
             <div className="flex gap-2">
               {testimonials.map((_, i) => (
-                <button key={i} onClick={() => go(i, i > active ? 1 : -1)}
-                  className={`h-2 rounded-full transition-all duration-300 ${i === active ? 'w-8 bg-yellow-400' : 'w-2 bg-white/20 hover:bg-white/40'}`}
-                />
+                <button key={i} onClick={() => go(i, i > active ? 1 : -1)} aria-label={`Show testimonial ${i + 1}`}
+                  className={`relative h-2 rounded-full overflow-hidden transition-all duration-300 ${i === active ? 'w-10 bg-white/20' : 'w-2 bg-white/20 hover:bg-white/40'}`}
+                >
+                  {i === active && (
+                    <motion.span
+                      key={`${active}-${paused}`}
+                      className="absolute inset-y-0 left-0 bg-yellow-400 rounded-full"
+                      initial={{ width: paused ? "100%" : "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: paused ? 0 : 5, ease: "linear" }}
+                    />
+                  )}
+                </button>
               ))}
             </div>
 

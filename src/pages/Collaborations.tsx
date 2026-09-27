@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 import { collaborations, type Collaboration } from "@/data/collaborations";
 import {
   FallingLeaves, Marquee, RevealImage, ScrollCue, Shine, SplitWords, Tilt, ease, fadeUp, rise, stagger,
-} from "@/components/collaborations/motion";
+} from "@/components/motion";
 
 const serif = { fontFamily: "'Cormorant Garamond', serif" };
 
@@ -238,19 +238,17 @@ const Hero = ({ cover }: { cover?: string }) => {
         <ScrollCue className="mt-14" />
       </motion.div>
 
-      <svg className="absolute bottom-0 left-0 w-full h-16 md:h-24 text-[#f7f4ec] dark:text-neutral-950" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden>
-        <motion.path
-          fill="currentColor"
-          animate={{
-            d: [
-              "M0,64 C240,10 480,10 720,40 C960,70 1200,90 1440,40 L1440,90 L0,90 Z",
-              "M0,40 C240,80 480,80 720,50 C960,20 1200,10 1440,60 L1440,90 L0,90 Z",
-              "M0,64 C240,10 480,10 720,40 C960,70 1200,90 1440,40 L1440,90 L0,90 Z",
-            ],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </svg>
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none" aria-hidden>
+        <motion.svg
+          className={`block w-[200%] h-16 md:h-24 text-[#f7f4ec] dark:text-neutral-950`}
+          viewBox="0 0 2880 90"
+          preserveAspectRatio="none"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+        >
+          <path fill="currentColor" d="M0,50 C360,0 1080,100 1440,50 C1800,0 2520,100 2880,50 L2880,90 L0,90 Z" />
+        </motion.svg>
+      </div>
     </section>
   );
 };
@@ -260,7 +258,7 @@ const Collaborations = () => {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen bg-[#f7f4ec] dark:bg-neutral-950 overflow-x-hidden">
+      <div className="min-h-screen bg-[#f7f4ec] dark:bg-neutral-950 overflow-x-clip">
         <Header />
         <Hero cover={featured?.coverImage} />
 
