@@ -29,6 +29,19 @@ import FundraiserPage from "./pages/FundraiserPage";
 import CreateFundraiserLink from "./pages/CreateFundraiserLink";
 import Collaborations from "./pages/Collaborations";
 import CollaborationDetail from "./pages/CollaborationDetail";
+import { lazy, Suspense } from "react";
+
+const DigitalDaanHome = lazy(() => import("./features/digital-daan/pages/DigitalDaanHome"));
+const DDExplore = lazy(() => import("./features/digital-daan/pages/Explore"));
+const DDResource = lazy(() => import("./features/digital-daan/pages/ResourceDetail"));
+const DDTopic = lazy(() => import("./features/digital-daan/pages/TopicPage"));
+const DDCampaign = lazy(() => import("./features/digital-daan/pages/CampaignPage"));
+const DDContribute = lazy(() => import("./features/digital-daan/pages/Contribute"));
+const DDAdmin = lazy(() => import("./features/digital-daan/admin/Admin"));
+const DDContributors = lazy(() => import("./features/digital-daan/pages/Contributors").then((m) => ({ default: m.ContributorsPage })));
+const DDContributor = lazy(() => import("./features/digital-daan/pages/Contributors").then((m) => ({ default: m.ContributorProfile })));
+const DDAbout = lazy(() => import("./features/digital-daan/pages/AboutPage").then((m) => ({ default: m.AboutPage })));
+const DDCampaigns = lazy(() => import("./features/digital-daan/pages/AboutPage").then((m) => ({ default: m.CampaignsIndex })));
 
 const queryClient = new QueryClient();
 
@@ -76,6 +89,13 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => (
   </>
 );
 
+// Digital Daan is a learning platform: a quick fade instead of the full curtain keeps browsing fast.
+const DD = ({ children }: { children: React.ReactNode }) => (
+  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.25 } }} exit={{ opacity: 0, transition: { duration: 0.12 } }}>
+    <Suspense fallback={<div className="min-h-screen bg-white dark:bg-neutral-950" aria-busy="true" />}>{children}</Suspense>
+  </motion.div>
+);
+
 const AnimatedRoutes = () => {
   const location = useLocation();
   return (
@@ -103,6 +123,18 @@ const AnimatedRoutes = () => {
         <Route path="/programs/training" element={<PageTransition><EducationProgram /></PageTransition>} />
         <Route path="/fundraise/:slug" element={<PageTransition><FundraiserPage /></PageTransition>} />
         <Route path="/create-fundraiser" element={<PageTransition><CreateFundraiserLink /></PageTransition>} />
+        <Route path="/digital-daan" element={<DD><DigitalDaanHome /></DD>} />
+        <Route path="/digital-daan/explore" element={<DD><DDExplore /></DD>} />
+        <Route path="/digital-daan/resources/:slug" element={<DD><DDResource /></DD>} />
+        <Route path="/digital-daan/activities/:slug" element={<DD><DDTopic type="activity" /></DD>} />
+        <Route path="/digital-daan/contributors" element={<DD><DDContributors /></DD>} />
+        <Route path="/digital-daan/contributors/:slug" element={<DD><DDContributor /></DD>} />
+        <Route path="/digital-daan/campaigns" element={<DD><DDCampaigns /></DD>} />
+        <Route path="/digital-daan/campaigns/:slug" element={<DD><DDCampaign /></DD>} />
+        <Route path="/digital-daan/contribute" element={<DD><DDContribute /></DD>} />
+        <Route path="/digital-daan/about" element={<DD><DDAbout /></DD>} />
+        <Route path="/digital-daan/admin" element={<DD><DDAdmin /></DD>} />
+        <Route path="/digital-daan/:topic" element={<DD><DDTopic type="category" /></DD>} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>

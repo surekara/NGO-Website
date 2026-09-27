@@ -271,3 +271,7 @@ html {
 .btn-glow:hover {
   box-shadow: 0 0 36px rgba(255, 215, 0, 0.5);
 }
+@layer utilities {
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}

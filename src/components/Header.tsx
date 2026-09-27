@@ -16,6 +16,7 @@ const navItems: NavItem[] = [
   { href: "/about", label: "About Us" },
   { href: "/programs", label: "Our Programs" },
   { href: "/collaborations", label: "Collaborations" },
+  { href: "/digital-daan", label: "Digital Daan" },
   { href: "/get-involved", label: "Get Involved" },
   { href: "/contact", label: "Contact" },
 ];
@@ -85,7 +86,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-4">
+          <nav className="hidden xl:flex items-center gap-3 2xl:gap-4">
             <div className="flex items-center gap-0.5" onMouseLeave={() => setHovered(null)}>
               {navItems.map((item, i) => {
                 const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
@@ -107,7 +108,7 @@ const Header = () => {
                     )}
                     <Link
                       to={item.href}
-                      className={`relative block px-3 py-2 font-medium transition-colors ${active ? "text-prachetas-yellow" : "text-white hover:text-prachetas-yellow"}`}
+                      className={`relative block px-2.5 2xl:px-3 py-2 font-medium whitespace-nowrap transition-colors ${active ? "text-prachetas-yellow" : "text-white hover:text-prachetas-yellow"}`}
                     >
                       {item.label}
                       {active && (
@@ -161,7 +162,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={toggleMenu}
-            className="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
+            className="xl:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
             aria-label="Toggle Menu"
             whileTap={{ scale: 0.9 }}
           >
@@ -195,7 +196,7 @@ const Header = () => {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.nav
-              className="md:hidden mt-4 space-y-4 pb-4 overflow-hidden"
+              className="xl:hidden mt-4 space-y-4 pb-4 overflow-hidden"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
