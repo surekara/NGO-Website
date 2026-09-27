@@ -68,6 +68,7 @@ const Footer = () => {
               {[
                 { to: "/about", label: "About Us" },
                 { to: "/programs", label: "Our Programs" },
+                { to: "/collaborations", label: "Collaborations" },
                 { to: "/volunteer", label: "Volunteer" },
                 { to: "/donate", label: "Donate" },
                 { to: "/create-fundraiser", label: "🔗 Create Fundraiser Link", special: true },

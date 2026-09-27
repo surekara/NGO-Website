@@ -14,6 +14,7 @@ const navItems: NavItem[] = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About Us" },
   { href: "/programs", label: "Our Programs" },
+  { href: "/collaborations", label: "Collaborations" },
   { href: "/get-involved", label: "Get Involved" },
   { href: "/contact", label: "Contact" },
 ];
@@ -97,14 +98,6 @@ const Header = () => {
                 </Link>
               </motion.div>
             ))}
-            <motion.div whileHover={{ y: -2 }}>
-              <Link
-                to="/create-fundraiser"
-                className="text-yellow-400 hover:text-yellow-300 transition-colors font-medium text-sm border border-yellow-400/40 hover:border-yellow-300 px-4 py-2 rounded-lg hover:bg-yellow-400/10"
-              >
-                🔗 Fundraise
-              </Link>
-            </motion.div>
             <motion.button
               onClick={toggle}
               className="p-2 rounded-lg border border-white/20 hover:border-yellow-400/50 text-gray-300 hover:text-yellow-400 transition-all hover:scale-110"
@@ -195,19 +188,6 @@ const Header = () => {
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: navItems.length * 0.1 }}
-              >
-                <Link
-                  to="/create-fundraiser"
-                  className="block text-yellow-400 hover:text-yellow-300 transition-colors font-medium py-2 hover:pl-4 transition-all"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  🔗 Create Fundraiser Link
-                </Link>
-              </motion.div>
-              <motion.div
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: (navItems.length + 1) * 0.1 }}
               >
                 <Button
                   asChild

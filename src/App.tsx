@@ -28,6 +28,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import RefundPolicy from "./pages/RefundPolicy";
 import FundraiserPage from "./pages/FundraiserPage";
 import CreateFundraiserLink from "./pages/CreateFundraiserLink";
+import Collaborations from "./pages/Collaborations";
+import CollaborationDetail from "./pages/CollaborationDetail";
 
 const queryClient = new QueryClient();
 
@@ -72,6 +74,8 @@ const App = () => (
           <Route path="/privacy-policy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
           <Route path="/refund-policy" element={<PageTransition><RefundPolicy /></PageTransition>} />
           <Route path="/impact" element={<PageTransition><Impact /></PageTransition>} />
+          <Route path="/collaborations" element={<PageTransition><Collaborations /></PageTransition>} />
+          <Route path="/collaborations/:slug" element={<PageTransition><CollaborationDetail /></PageTransition>} />
           <Route path="/get-involved" element={<PageTransition><GetInvolved /></PageTransition>} />
           <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
           <Route path="/donate" element={<PageTransition><Donate /></PageTransition>} />
