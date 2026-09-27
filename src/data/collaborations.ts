@@ -1,6 +1,9 @@
-export type CollaborationMedia =
+export type MediaLayout = "full" | "wide" | "tall";
+
+export type CollaborationMedia = (
   | { type: "image"; src: string; caption: string }
-  | { type: "video"; src: string; poster: string; caption: string };
+  | { type: "video"; src: string; poster: string; caption: string }
+) & { layout?: MediaLayout };
 
 export interface Collaboration {
   slug: string;
@@ -60,11 +63,17 @@ export const collaborations: Collaboration[] = [
     },
     closingQuote: "When we reconnect with nature, we become more conscious of our responsibility to protect it.",
     media: [
-      { type: "image", src: `${base}/community-meal.jpg`, caption: "Students sharing a mindful meal under the canopy" },
+      { type: "image", src: `${base}/group-photo-1.jpg`, caption: "Together at the Ramnadi–Mula confluence", layout: "full" },
+      { type: "image", src: `${base}/community-meal.jpg`, caption: "Students sharing a mindful meal under the canopy", layout: "tall" },
       { type: "video", src: `${base}/walk-1.mp4`, poster: `${base}/walk-1-poster.jpg`, caption: "Understanding the river ecosystem" },
-      { type: "image", src: `${base}/serving-food.jpg`, caption: "Serving wholesome food to participants" },
       { type: "video", src: `${base}/walk-2.mp4`, poster: `${base}/walk-2-poster.jpg`, caption: "Young nature enthusiasts at the confluence" },
+      { type: "image", src: `${base}/group-photo-2.jpg`, caption: "Prachetas Foundation with the walk participants", layout: "wide" },
+      { type: "image", src: `${base}/serving-food.jpg`, caption: "Serving wholesome food to participants" },
       { type: "video", src: `${base}/walk-3.mp4`, poster: `${base}/walk-3-poster.jpg`, caption: "A shared meal amidst nature" },
+      { type: "video", src: `${base}/walk-4.mp4`, poster: `${base}/walk-4-poster.jpg`, caption: "Food prepared and served with love" },
+      { type: "image", src: `${base}/serving-lunch.jpg`, caption: "Lunch served with care after the walk" },
+      { type: "video", src: `${base}/walk-5.mp4`, poster: `${base}/walk-5-poster.jpg`, caption: "Students enjoying lunch in the woods" },
+      { type: "video", src: `${base}/walk-6.mp4`, poster: `${base}/walk-6-poster.jpg`, caption: "Reconnecting with nature, together" },
     ],
   },
 ];

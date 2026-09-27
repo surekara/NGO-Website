@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { getCollaboration, type CollaborationMedia } from "@/data/collaborations";
+import { getCollaboration, type CollaborationMedia, type MediaLayout } from "@/data/collaborations";
 import {
   FallingLeaves, Marquee, RevealImage, ScrollCue, Shine, SplitWords, Tilt, ease, fadeUp, rise, stagger,
 } from "@/components/motion";
@@ -15,6 +15,20 @@ import {
 const serif = { fontFamily: "'Cormorant Garamond', serif" };
 
 const activityIcons = [Footprints, Trees, Bird, Flower2, Sprout, Heart, Palette, Users];
+
+const tileSpan: Record<MediaLayout | "default", string> = {
+  full: "col-span-2 lg:col-span-3",
+  wide: "col-span-2",
+  tall: "col-span-2 lg:col-span-1 lg:row-span-2",
+  default: "",
+};
+
+const tileSize: Record<MediaLayout | "default", string> = {
+  full: "aspect-[4/3] md:aspect-[16/9]",
+  wide: "aspect-[4/3] lg:aspect-auto lg:h-full",
+  tall: "h-[420px] lg:h-full",
+  default: "aspect-[3/4]",
+};
 
 const Highlighted = ({ text }: { text: string }) => (
   <>
@@ -420,7 +434,7 @@ const CollaborationDetail = () => {
               </h2>
             </div>
 
-            <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
+            <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-3 grid-flow-row-dense gap-3 md:gap-5">
               {c.media.map((m, i) => (
                 <Tilt
                   key={m.src}
@@ -429,7 +443,7 @@ const CollaborationDetail = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ delay: (i % 3) * 0.12, duration: 0.8, ease }}
-                  className={i === 0 ? "col-span-2 lg:col-span-1 lg:row-span-2" : ""}
+                  className={tileSpan[m.layout ?? "default"]}
                 >
                   <button
                     onClick={() => { setDir(1); setActive(i); }}
@@ -439,7 +453,7 @@ const CollaborationDetail = () => {
                       src={m.type === "image" ? m.src : m.poster}
                       alt={m.caption}
                       delay={(i % 3) * 0.12}
-                      className={i === 0 ? "h-[420px] lg:h-full" : "aspect-[3/4]"}
+                      className={tileSize[m.layout ?? "default"]}
                       imgClassName="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/0 to-black/0 opacity-80 group-hover:opacity-100 transition-opacity" />
